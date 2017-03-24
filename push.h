@@ -16,14 +16,16 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "libft/libft.h"
+# include "libft/libftprintf.h"
 
-typedef struct		s_lst
+typedef struct		s_stack
 {
-	struct s_lst	*next;
+	struct s_stack	*next;
 	int				num;
-}					t_lst;
+}					t_stack;
 
 void	ft_error(void);
 void	ft_usage(char *name);
+
 
 #endif
