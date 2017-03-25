@@ -16,5 +16,5 @@ void	ft_usage(char *name)
 {
 	write(1, "Usage: ", 7);
 	ft_putstr(name);
-	write(1, "\nwrite integers\n", 16);
+	write(1, " [write list of integers]\n", 26);
 }

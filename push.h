@@ -24,8 +24,16 @@ typedef struct		s_stack
 	int				num;
 }					t_stack;
 
+typedef struct		s_last
+{
+	t_stack		*a_last;
+	t_stack		*b_last;
+}					t_last;
+
 void	ft_error(void);
 void	ft_usage(char *name);
 
+t_stack		*push_to_stack(int *arr, int n);
+t_stack		*new_node(void);
 
 #endif

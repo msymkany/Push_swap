@@ -35,7 +35,7 @@ int		dub_check(int *arr, int num, size_t i)
 	{
 		if (*arr == num)
 			ft_error();
-		if (j == 0 && *arr++ > num)
+		if (*arr++ > num && j == 0)
 			j = 1;
 	}
 	return (j);
@@ -64,32 +64,71 @@ long int		atoi_push(const char *str)
 	return ((r * s));
 }
 
-int				main(int ar, char **av)
+int 	*read_stack(int ar, char **av, int *j)
 {
 	size_t		i;
-	int			j;
 	long int	num;
-	int 		arr_i[ar - 1];
+	int 		*stack;
 
 	i = 0;
+	stack = (int *)malloc(sizeof(int) * (ar - 1));
+	while (--ar)
+	{
+		arg_check(av[i + 1]);
+		num = atoi_push(av[i + 1]);
+		if (num > 2147483647 || num < -2147483648)
+			ft_error();
+		if (i)
+			if (dub_check(stack, (int)num, i))
+				(*j)++;
+		stack[i++] = (int)num;
+	}
+	write(1, "C'est magnifique\n", 17); // test
+	return (stack);
+}
+
+int		main(int ar, char **av)
+{
+	int 		*stack;
+	int			j;
+	t_stack		*list;
+
 	j = 0;
 	if (ar == 1)
 		ft_usage(av[0]);
 	else
 	{
-		while (--ar)
+		stack = (read_stack(ar, av, &j));
+		if (j == 0)
 		{
-			arg_check(av[i + 1]);
-			num = atoi_push(av[i + 1]);
-			if (num > 2147483647 || num < -2147483648)
-				ft_error();
-			if (i)
-				if (dub_check(arr_i, num, i))
-					j++;
-			arr_i[i++] = (int)num;
+			write(1, "NO sort is needed\n", 18); // test
+			while(--ar)
+			{
+				ft_putnbr(*stack++);
+				write(1, " ", 1);
+			}
+			write(1, "\n", 1);
+			exit(0);
 		}
-		ft_printf("%d\n", j);
-		write(1, "C'est magnifique\n", 17); // test
+		else
+		{
+			list = push_to_stack(stack, ar);
+			write(1, "That's list\n", 12);
+			while (list)
+				{
+					ft_printf("%d\n", list->num);
+					ft_putchar('\n');
+					list = list->next;
+				}
+		}
+//		write(1, "Sort it!\n", 9);
+//		while(--ar)
+//		{
+//			ft_putnbr(*stack++);
+//			write(1, " ", 1);
+//		}
+//		write(1, "\n", 1);
+
 	}
 	return (0);
 }

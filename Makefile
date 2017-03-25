@@ -6,7 +6,7 @@
 #    By: msymkany <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/18 15:40:33 by msymkany          #+#    #+#              #
-#    Updated: 2017/03/22 19:34:43 by msymkany         ###   ########.fr        #
+#    Updated: 2017/03/25 18:30:29 by msymkany         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,6 +20,7 @@ NAME_2 = push_swap
 SRC_2 = read_stack.c\
 		ft_error.c\
 		ft_usage.c\
+		stack_list.c\
 
 OBJ_2 = $(SRC_2:.c=.o)
 
