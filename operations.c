@@ -65,18 +65,8 @@ void	reverse(t_stack **s)
 		while (ptr->next->next)
 			ptr = ptr->next;
 		last_el = ptr->next;
-		ptr->next = NULL:
+		ptr->next = NULL;
 		last_el->next = *s;
 		*s = last_el;
 	}
-}
-
-void	commands(char *com, t_stack *a)
-{
-	t_stack		*b;
-	int 		i;
-
-	i = 0;
-	if (com[])
-
 }

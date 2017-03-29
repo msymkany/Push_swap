@@ -83,6 +83,6 @@ int 	*read_stack(int ar, char **av, int *j)
 				(*j)++;
 		stack[i++] = (int)num;
 	}
-	write(1, "C'est magnifique\n", 17); // test
+//	write(1, "C'est magnifique\n", 17); // test
 	return (stack);
 }

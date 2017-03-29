@@ -24,16 +24,39 @@ typedef struct		s_stack
 	int				num;
 }					t_stack;
 
-typedef struct		s_last
+typedef struct		s_head
 {
-	t_stack		*a_last;
-	t_stack		*b_last;
-}					t_last;
+	t_stack		*a;
+	t_stack		*b;
+}					t_head;
 
 void	ft_error(void);
 void	ft_usage(char *name);
 
-t_stack		*push_to_stack(int *arr, int n);
+int 	*read_stack(int ar, char **av, int *j);
+
+t_stack		*push_to_list(int *arr, int n);
 t_stack		*new_node(void);
+
+//operations
+void	swap(t_stack **s);
+void	sa(t_stack **a);
+void	sb(t_stack **b);
+void	ss(t_stack **a, t_stack **b);
+void	push(t_stack **frst, t_stack **scnd);
+void	pa(t_stack **b, t_stack **a);
+void	pb(t_stack **a, t_stack **b);
+void	rotate(t_stack **s);
+void	ra(t_stack **a);
+void	rb(t_stack **b);
+void	rr(t_stack **a, t_stack **b);
+void	reverse(t_stack **s);
+void	rra(t_stack **a);
+void	rrb(t_stack **b);
+void	rrr(t_stack **a, t_stack **b);
+
+//test
+void 	print_list(t_stack *list);
+void	print_stack(int *stack, int ar);
 
 #endif

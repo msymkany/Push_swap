@@ -14,7 +14,7 @@
 
 void	ft_error(void)
 {
-//	write(1, "Error\n", 6);
-	write(1, "C'est le hernia\n", 16);
+	write(1, "Error\n", 6);
+//	write(1, "C'est le hernia\n", 16);
 	exit(1);
 }
