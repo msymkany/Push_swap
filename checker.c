@@ -105,12 +105,12 @@ void	checker(t_stack *a, int j)
 	b = NULL;
 	while (get_next_line(0, &line))
 	{
+		commands(line, &a, &b);
 		if (j == 0)
 		{
 			write(1, "KO\n", 3);
 			exit(0);
 		}
-		commands(line, &a, &b);
 		ft_strdel(&line);
 	}
 	if (j)
@@ -120,6 +120,8 @@ void	checker(t_stack *a, int j)
 		else
 			write(1, "KO\n", 3);
 	}
+	else
+		write(1, "OK\n", 3);
 }
 
 //int		main(void)
