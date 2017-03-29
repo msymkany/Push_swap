@@ -1,58 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations.c                                       :+:      :+:    :+:   */
+/*   op_reverse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msymkany <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/27 15:23:49 by msymkany          #+#    #+#             */
-/*   Updated: 2017/03/27 15:23:52 by msymkany         ###   ########.fr       */
+/*   Created: 2017/03/27 16:50:49 by msymkany          #+#    #+#             */
+/*   Updated: 2017/03/27 16:50:56 by msymkany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
-
-void	swap(t_stack **s)
-{
-	int 		n;
-
-	if (*s && (*s)->next)
-	{
-		n = (*s)->num;
-		(*s)->num = (*s)->next->num;
-		(*s)->next->num = n;
-	}
-}
-
-void	push(t_stack **frst, t_stack **scnd)
-{
-	t_stack		*st;
-
-	st = *frst;
-	if (*frst)
-	{
-		*frst = *frst->next;
-		st->next = *scnd;
-		*scnd = st;
-	}
-}
-
-void	rotate(t_stack **s)
-{
-	t_stack		*frst_el;
-	t_stack		*ptr;
-
-	frst_el = *s;
-	ptr = *s;
-	if (*s && (*s)->next)
-	{
-		*s = *s->next;
-		while (ptr->next)
-			ptr = ptr->next;
-		ptr->next = frst_el;
-		frst_el->next = NULL;
-	}
-}
 
 void	reverse(t_stack **s)
 {
@@ -69,4 +27,20 @@ void	reverse(t_stack **s)
 		last_el->next = *s;
 		*s = last_el;
 	}
+}
+
+void	rra(t_stack **a)
+{
+	reverse(a);
+}
+
+void	rrb(t_stack **b)
+{
+	reverse(b);
+}
+
+void	rrr(t_stack **a, t_stack **b)
+{
+	reverse(a);
+	reverse(b);
 }
