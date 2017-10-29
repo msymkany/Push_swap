@@ -103,6 +103,7 @@ void	checker(t_stack *a, int j)
 	char 		*line;
 
 	b = NULL;
+	print_stack_a_b(a, b); // test
 	while (get_next_line(0, &line))
 	{
 		commands(line, &a, &b);
@@ -149,8 +150,8 @@ int		main(int ar, char **av)
 	else
 	{
 		stack = (read_stack(ar, av, &j));
-		a = push_to_list(stack, ar);
-		print_list(a); //test
+		a = push_to_stack_a(stack, ar);
+//		print_list(a); //test
 		checker(a, j);
 	}
 	return (0);

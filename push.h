@@ -21,22 +21,24 @@
 typedef struct		s_stack
 {
 	struct s_stack	*next;
-	int				num;
-}					t_stack;
+	int     	num;
+}			t_stack;
 
 typedef struct		s_head
 {
-	t_stack		*a;
-	t_stack		*b;
-}					t_head;
+	t_stack		*self;
+	int         len;
+}			t_head;
 
-void	ft_error(void);
-void	ft_usage(char *name);
+void		ft_error(void);
+void		ft_usage(char *name);
 
-int 	*read_stack(int ar, char **av, int *j);
+int 		*read_stack(int ar, char **av, int *j);
 
-t_stack		*push_to_list(int *arr, int n);
+t_stack		*push_to_stack_a(int *arr, int n);
 t_stack		*new_node(void);
+
+void        sort_it(t_stack *a, int len_a, t_stack *b);
 
 //operations
 void	swap(t_stack **s);
@@ -56,7 +58,7 @@ void	rrb(t_stack **b);
 void	rrr(t_stack **a, t_stack **b);
 
 //test
-void 	print_list(t_stack *list);
+//void 	print_list(t_stack *list);
 void	print_stack(int *stack, int ar);
 
 #endif

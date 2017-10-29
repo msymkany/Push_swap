@@ -13,11 +13,11 @@
 NAME = libft.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra #-Werror
 
 LIBFT_I = ./libft.h
 PRINTF_I = ./libftprintf.h
-INCLUDES = -I $(LIBFT_I) -I $(PRINTF_I)
+INCLUDES = $(LIBFT_I) $(PRINTF_I)
 
 SOURCE = ft_isdigit.c \
             ft_isalnum.c \
@@ -104,8 +104,8 @@ $(NAME): $(OBJECTS)
 	ar rc $(NAME) $(OBJECTS)
 	ranlib $(NAME)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $< $(INCLUDES)
+%.o: %.c $(INCLUDES)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	rm -rf $(OBJECTS)

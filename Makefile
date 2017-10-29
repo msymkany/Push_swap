@@ -35,6 +35,7 @@ SRC_2 = push_swap.c\
 		op_push.c\
 		op_rotate.c\
 		op_reverse.c\
+		sort_it.c\
 
 OBJ_2 = $(SRC_2:.c=.o)
 

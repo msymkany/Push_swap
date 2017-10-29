@@ -37,7 +37,8 @@ int		main(int ar, char **av)
 {
 	int 		*stack;
 	int			j;
-	t_stack		*list;
+	t_stack		*stack_a;
+	t_stack		*stack_b;
 
 	j = 0;
 	if (ar == 1)
@@ -45,7 +46,7 @@ int		main(int ar, char **av)
 	else
 	{
 		stack = (read_stack(ar, av, &j));
-		print_stack(stack, ar);
+//		print_stack(stack, ar);
 		if (j == 0)
 		{
 			write(1, "NO sort is needed\n", 18); // test
@@ -54,9 +55,10 @@ int		main(int ar, char **av)
 		}
 		else
 		{
-			list = push_to_list(stack, ar);
-			print_list(list); //test
-	//		sort_it();
+			stack_a = push_to_stack_a(stack, ar);
+			stack_b = NULL;
+//			print_list(list); //test
+			sort_it(stack_a, ar - 1, stack_b); // add flags
 		}
 	}
 	return (0);
