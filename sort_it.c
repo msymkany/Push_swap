@@ -1,43 +1,81 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_it.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msymkany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/09 16:05:40 by msymkany          #+#    #+#             */
+/*   Updated: 2017/04/09 16:06:18 by msymkany         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push.h"
 
-void    sort_three_max(t_stack *a, int len_a)
+int		get_min(t_stack *a)
 {
-	while (len_a > 1)
+	int		min;
+
+	min = a->num;
+	while (a->next)
 	{
-		if (a->num > a->next->num)
-		{
-			if (a->next->next && a->num > a->next->next->num &&
-					ft_printf("ra\n"))
-				ra(&a);
-			else
-			{
-				sa(&a);
-				ft_printf("sa\n");
-			}
-		}
-		else if (a->next->next && a->next->next->num < a->next->num
-				&& ft_printf("rra\n"))
-			rra(&a);
-		len_a--;
+		a = a->next;
+		if (a->num < min)
+			min = a->num;
+	}
+	return (min);
+}
+
+void	bubble_sort(t_stack *a, char debug)
+{
+	int			min;
+	t_stack		*b;
+
+	b = NULL;
+	min = get_min(a);
+	while (count_misplaced(a))
+	{
+		if (a->next->num != min && a->num > a->next->num)
+			sa(&a, &b, 1, debug);
+		else
+			ra(&a, &b, 1, debug);
 	}
 }
 
-void    sort_it(t_stack *a, int len_a, t_stack *b)
+int		get_pre_last(t_stack *a)
 {
-	t_head  *st_a;
-	t_head  *st_b;
+	while (a->next->next)
+		a = a->next;
+	return (a->num);
+}
 
-	if (len_a > 3)
+void	sort_reverse_stack(t_stack *a, char debug)
+{
+	t_stack		*b;
+	int			pre_last;
+
+	b = NULL;
+	pb(&a, &b, 1, debug);
+	pre_last = get_pre_last(a);
+	while (a->num != pre_last)
 	{
-		st_a = (t_head *)ft_memalloc(sizeof(t_head));
-		st_b = (t_head *)ft_memalloc(sizeof(t_head));
-		st_a->self = a;
-		st_a->len = len_a;
-		ft_printf("%s\n", st_b->self); //test
-		st_b->self = b; // test
-		write(1, "quicksort here\n", 15);
-//		quick_sort();
+		pb(&a, &b, 1, debug);
+		rb(&a, &b, 1, debug);
 	}
+	sa(&a, &b, 1, debug);
+	while (b)
+		pa(&b, &a, 1, debug);
+	rra(&a, &b, 1, debug);
+	rra(&a, &b, 1, debug);
+}
+
+void	sort_it(t_stack *a, int length, int wrong, char debug)
+{
+	wrong = count_misplaced(a);
+	if (length > 3 && (wrong == length - 1))
+		sort_reverse_stack(a, debug);
+	else if (length < 6)
+		bubble_sort(a, debug);
 	else
-		sort_three_max(a, len_a);
+		timsort(a, wrong, debug);
 }

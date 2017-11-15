@@ -25,12 +25,26 @@ void	push(t_stack **frst, t_stack **scnd)
 	}
 }
 
-void	pa(t_stack **b, t_stack **a)
+void	pa(t_stack **b, t_stack **a, char print, char debug)
 {
 	push(b, a);
+	if (print)
+		write(1, "pa\n", 3);
+	if (debug)
+	{
+		if (read(0, NULL, 1))
+			print_stack_a_b(*a, *b);
+	}
 }
 
-void	pb(t_stack **a, t_stack **b)
+void	pb(t_stack **a, t_stack **b, char print, char debug)
 {
 	push(a, b);
+	if (print)
+		write(1, "pb\n", 3);
+	if (debug)
+	{
+		if (read(0, NULL, 1))
+			print_stack_a_b(*a, *b);
+	}
 }

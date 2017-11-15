@@ -6,13 +6,13 @@
 /*   By: msymkany <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 15:54:01 by msymkany          #+#    #+#             */
-/*   Updated: 2017/03/22 15:54:26 by msymkany         ###   ########.fr       */
+/*   Updated: 2017/04/13 20:40:09 by msymkany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
 
-void 	arg_check(char *str)
+void		arg_check(char *str)
 {
 	if (*str == '-' || *str == '+')
 		str++;
@@ -26,9 +26,9 @@ void 	arg_check(char *str)
 	}
 }
 
-int		dub_check(int *arr, int num, size_t i)
+int			dub_check(int *arr, int num, size_t i)
 {
-	int 	j;
+	int j;
 
 	j = 0;
 	while (i--)
@@ -41,14 +41,13 @@ int		dub_check(int *arr, int num, size_t i)
 	return (j);
 }
 
-long int		atoi_push(const char *str)
+long int	atoi_push(const char *str)
 {
 	int					s;
 	long int			r;
 
 	r = 0;
 	s = 1;
-
 	if (*str == '-')
 	{
 		s = -1;
@@ -64,25 +63,28 @@ long int		atoi_push(const char *str)
 	return ((r * s));
 }
 
-int 	*read_stack(int ar, char **av, int *j)
+int			*read_stack(int ar, char **av, int *wrong)
 {
 	size_t		i;
+	size_t		j;
 	long int	num;
-	int 		*stack;
+	int			*stack;
 
 	i = 0;
+	j = 1;
+	if (ft_strequ(av[j], "-v"))
+		j++;
 	stack = (int *)malloc(sizeof(int) * (ar - 1));
-	while (--ar)
+	while ((int)j < ar)
 	{
-		arg_check(av[i + 1]);
-		num = atoi_push(av[i + 1]);
+		arg_check(av[j]);
+		num = atoi_push(av[j++]);
 		if (num > 2147483647 || num < -2147483648)
 			ft_error();
 		if (i)
 			if (dub_check(stack, (int)num, i))
-				(*j)++;
+				(*wrong)++;
 		stack[i++] = (int)num;
 	}
-//	write(1, "C'est magnifique\n", 17); // test
 	return (stack);
 }

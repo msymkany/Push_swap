@@ -6,59 +6,36 @@
 /*   By: msymkany <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 17:55:52 by msymkany          #+#    #+#             */
-/*   Updated: 2017/03/25 17:55:54 by msymkany         ###   ########.fr       */
+/*   Updated: 2017/04/13 20:34:03 by msymkany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
 
-void 	print_list(t_stack *list)
-{
-	write(1, "That's list\n", 12);
-	while (list)
-	{
-		ft_printf("%d\n", list->num);
-		list = list->next;
-	}
-}
-
-void	print_stack(int *stack, int ar)
-{
-	while(--ar)
-	{
-		ft_putnbr(*stack++);
-		write(1, " ", 1);
-	}
-	write(1, "\n", 1);
-}
-
-
 int		main(int ar, char **av)
 {
-	int 		*stack;
-	int			j;
-	t_stack		*stack_a;
-	t_stack		*stack_b;
+	int			*stack;
+	int			wrong;
+	t_stack		*list;
+	char		debug;
 
-	j = 0;
-	if (ar == 1)
+	wrong = 0;
+	debug = 0;
+	if (ar == 1 || (ar == 2 && ft_strequ(av[1], "-v")))
 		ft_usage(av[0]);
 	else
 	{
-		stack = (read_stack(ar, av, &j));
-//		print_stack(stack, ar);
-		if (j == 0)
+		if (ft_strequ(av[1], "-v"))
+			debug = 1;
+		stack = (read_stack(ar, av, &wrong));
+		if (wrong == 0)
 		{
-			write(1, "NO sort is needed\n", 18); // test
-			print_stack(stack, ar);
 			exit(0);
 		}
 		else
 		{
-			stack_a = push_to_stack_a(stack, ar);
-			stack_b = NULL;
-//			print_list(list); //test
-			sort_it(stack_a, ar - 1, stack_b); // add flags
+			list = push_to_list(stack, (ar - debug));
+			sort_it(list, --ar - debug, wrong, debug);
 		}
 	}
 	return (0);

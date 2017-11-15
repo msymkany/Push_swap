@@ -29,18 +29,39 @@ void	reverse(t_stack **s)
 	}
 }
 
-void	rra(t_stack **a)
+void	rra(t_stack **a, t_stack **b, char print, char debug)
 {
 	reverse(a);
+	if (print)
+		write(1, "rra\n", 4);
+	if (debug)
+	{
+		if (read(0, NULL, 1))
+			print_stack_a_b(*a, *b);
+	}
 }
 
-void	rrb(t_stack **b)
+void	rrb(t_stack **a, t_stack **b, char print, char debug)
 {
 	reverse(b);
+	if (print)
+		write(1, "rrb\n", 4);
+	if (debug)
+	{
+		if (read(0, NULL, 1))
+			print_stack_a_b(*a, *b);
+	}
 }
 
-void	rrr(t_stack **a, t_stack **b)
+void	rrr(t_stack **a, t_stack **b, char print, char debug)
 {
 	reverse(a);
 	reverse(b);
+	if (print)
+		write(1, "rrr\n", 4);
+	if (debug)
+	{
+		if (read(0, NULL, 1))
+			print_stack_a_b(*a, *b);
+	}
 }

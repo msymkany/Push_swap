@@ -14,7 +14,7 @@
 
 void	swap(t_stack **s)
 {
-	int 		n;
+	int		n;
 
 	if (*s && (*s)->next)
 	{
@@ -24,18 +24,39 @@ void	swap(t_stack **s)
 	}
 }
 
-void	sa(t_stack **a)
+void	sa(t_stack **a, t_stack **b, char print, char debug)
 {
 	swap(a);
+	if (print)
+		write(1, "sa\n", 3);
+	if (debug)
+	{
+		if (read(0, NULL, 1))
+			print_stack_a_b(*a, *b);
+	}
 }
 
-void	sb(t_stack **b)
+void	sb(t_stack **a, t_stack **b, char print, char debug)
 {
 	swap(b);
+	if (print)
+		write(1, "sb\n", 3);
+	if (debug)
+	{
+		if (read(0, NULL, 1))
+			print_stack_a_b(*a, *b);
+	}
 }
 
-void	ss(t_stack **a, t_stack **b)
+void	ss(t_stack **a, t_stack **b, char print, char debug)
 {
 	swap(a);
 	swap(b);
+	if (print)
+		write(1, "ss\n", 3);
+	if (debug)
+	{
+		if (read(0, NULL, 1))
+			print_stack_a_b(*a, *b);
+	}
 }

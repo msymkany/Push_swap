@@ -16,13 +16,13 @@ t_stack		*new_node(void)
 {
 	t_stack		*new;
 
-	new = (t_stack *)malloc(sizeof(t_stack));
+	new = (t_stack *)malloc(sizeof(stack_t));
 	if (new)
 		new->next = NULL;
 	return (new);
 }
 
-t_stack		*push_to_stack_a(int *arr, int n)
+t_stack		*push_to_list(int *arr, int n)
 {
 	t_stack		*head;
 	t_stack		*next;

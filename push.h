@@ -21,44 +21,38 @@
 typedef struct		s_stack
 {
 	struct s_stack	*next;
-	int     	num;
-}			t_stack;
+	int				num;
+}					t_stack;
 
-typedef struct		s_head
-{
-	t_stack		*self;
-	int         len;
-}			t_head;
+void				ft_error(void);
+void				ft_usage(char *name);
 
-void		ft_error(void);
-void		ft_usage(char *name);
+int					*read_stack(int ar, char **av, int *j);
+int					stack_sorted(t_stack *a, t_stack *b);
 
-int 		*read_stack(int ar, char **av, int *j);
+void				sort_it(t_stack *a, int	length, int wrong, char debug);
+void				timsort(t_stack *a, int wrong, char debug);
+int					count_misplaced(t_stack *a);
 
-t_stack		*push_to_stack_a(int *arr, int n);
-t_stack		*new_node(void);
+t_stack				*push_to_list(int *arr, int n);
+t_stack				*new_node(void);
 
-void        sort_it(t_stack *a, int len_a, t_stack *b);
+void				swap(t_stack **s);
+void				sa(t_stack **a, t_stack **b, char print, char debug);
+void				sb(t_stack **a, t_stack **b, char print, char debug);
+void				ss(t_stack **a, t_stack **b, char print, char debug);
+void				push(t_stack **frst, t_stack **scnd);
+void				pa(t_stack **b, t_stack **a, char print, char debug);
+void				pb(t_stack **a, t_stack **b, char print, char debug);
+void				rotate(t_stack **s);
+void				ra(t_stack **a, t_stack **b, char print, char debug);
+void				rb(t_stack **a, t_stack **b, char print, char debug);
+void				rr(t_stack **a, t_stack **b, char print, char debug);
+void				reverse(t_stack **s);
+void				rra(t_stack **a, t_stack **b, char print, char debug);
+void				rrb(t_stack **a, t_stack **b, char print, char debug);
+void				rrr(t_stack **a, t_stack **b, char print, char debug);
 
-//operations
-void	swap(t_stack **s);
-void	sa(t_stack **a);
-void	sb(t_stack **b);
-void	ss(t_stack **a, t_stack **b);
-void	push(t_stack **frst, t_stack **scnd);
-void	pa(t_stack **b, t_stack **a);
-void	pb(t_stack **a, t_stack **b);
-void	rotate(t_stack **s);
-void	ra(t_stack **a);
-void	rb(t_stack **b);
-void	rr(t_stack **a, t_stack **b);
-void	reverse(t_stack **s);
-void	rra(t_stack **a);
-void	rrb(t_stack **b);
-void	rrr(t_stack **a, t_stack **b);
-
-//test
-//void 	print_list(t_stack *list);
-void	print_stack(int *stack, int ar);
+void				print_stack_a_b(t_stack *a, t_stack *b);
 
 #endif
