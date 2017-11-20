@@ -59,7 +59,7 @@ void	checker(t_stack *a, int wrong, char debug)
 	ft_strdel(&line);
 	if (wrong)
 	{
-		if (stack_sorted(a, b))
+		if (all_sorted(a, b))
 			write(1, "OK\n", 3);
 		else
 			write(1, "KO\n", 3);
