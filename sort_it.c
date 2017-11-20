@@ -121,5 +121,5 @@ void	sort_it(t_stack *a, int length, int wrong, char debug)
 //	else if (length > 10 && (wrong >= length - 1 - length / 10))
 		sort_almost_reverse_stack(a, b, debug);
 	else
-		quicksort(a, b, wrong, debug);
+		quicksort(a, b, debug);
 }
