@@ -33,7 +33,7 @@ int		count_misplaced(t_stack *a)
 	return (wrong);
 }
 
-void	divide(t_stack **a, t_stack **b, int wrong, t_op *op)
+void	divide(t_stack **a, int wrong, t_op *op)
 {
 	while (wrong)
 	{
@@ -67,7 +67,7 @@ void	timsort(t_stack *a, int wrong, t_op *op)
 	while (wrong)
 	{
 		wrong = (wrong % 2) ? wrong / 2 + 1 : wrong / 2;
-		divide(&a, &b, wrong, op);
+		divide(&a, wrong, op);
 		while (b)
 		{
 			merge_stacks(&a, &b, op);

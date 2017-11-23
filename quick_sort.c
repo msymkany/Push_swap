@@ -48,6 +48,7 @@ void	quicksort(t_stack *a, t_stack *b, t_op *op)
 {
 
 	print_stack_a_b(a, b);
+	(void) op;
 	ft_printf("quicksort here");
 //	if (a->next->next && !stack_a_sorted(a))
 //		divide_a(a, b, debug);

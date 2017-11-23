@@ -12,7 +12,7 @@
 
 #include "push.h"
 
-void	checker(t_stack *a, int wrong, char debug)
+void	checker(t_stack *a, int wrong)
 {
 	t_stack		*b;
 	char		*line;
@@ -57,7 +57,7 @@ int		main(int ar, char **av)
 			debug = 1;
 		stack = (read_stack(ar, av, &wrong));
 		a = push_to_list(stack, (ar - debug));
-		checker(a, wrong, debug);
+		checker(a, wrong);
 	}
 	return (0);
 }

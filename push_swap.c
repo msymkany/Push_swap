@@ -12,7 +12,7 @@
 
 #include "push.h"
 
-void	sort_print(int stack, int length, int wrong, char debug)
+void	sort_print(int *stack, int length, int wrong, char debug)
 {
 	t_stack		*a;
 	t_stack		*b;
@@ -21,11 +21,13 @@ void	sort_print(int stack, int length, int wrong, char debug)
 	t_op		*ptr;
 
 	b = NULL;
+	ptr = NULL;
 	a = push_to_list(stack, length);
 	list = push_to_list(stack, length);
 	op = sort_it(list, --length, wrong);
 	del_stack(list);
-	list = a;
+//	list = a;
+	ptr = op;
 	while (ptr)
 	{
 		if (debug)
@@ -38,6 +40,7 @@ void	sort_print(int stack, int length, int wrong, char debug)
 	if (debug)
 		print_stack_a_b(a, b);
 	del_op(op);
+	del_stack(a);
 }
 
 int		main(int ar, char **av)

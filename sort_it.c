@@ -49,7 +49,7 @@
 //	return (a->num);
 //}
 
-void	sort_three_max(t_stack *a, t_stack *b, int len_a, t_op *op)
+void	sort_three_max(t_stack *a, int len_a, t_op *op)
 {
 	while (len_a > 1)
 	{
@@ -113,9 +113,10 @@ t_op	*sort_it(t_stack *a, int length, int wrong)
 	t_op		*op;
 
 	b = NULL;
+	op = NULL;
 	wrong = count_misplaced(a);
 	if (length <= 3)
-		sort_three_max(a, b, length, op);
+		sort_three_max(a, length, op);
 	else if (length > 3 && (wrong == length - 1))
 		sort_reverse_stack(a, b, op);
 	else if (wrong >= length - 1 - length / 10)

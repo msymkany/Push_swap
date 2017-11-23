@@ -44,7 +44,7 @@ int					stack_a_sorted(t_stack *a);
 int					stack_b_sorted(t_stack *b);
 
 t_op				*sort_it(t_stack *a, int length, int wrong);
-void				sort_three_max(t_stack *a, t_stack *b, int len_a, t_op *op);
+void				sort_three_max(t_stack *a, int len_a, t_op *op);
 void				timsort(t_stack *a, int wrong, t_op *op);
 void				merge_stacks(t_stack **a, t_stack **b, t_op *op);
 int					count_misplaced(t_stack *a);
@@ -56,7 +56,7 @@ t_stack				*new_node(void);
 void				del_stack(t_stack *a);
 
 t_op				*new_node_op(char *op);
-void				*add_op(t_op *list, char *op);
+void				add_op(t_op *list, char *op);
 void				del_op(t_op *op);
 
 void				quicksort(t_stack *a, t_stack *b, t_op *op);
