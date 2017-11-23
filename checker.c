@@ -12,34 +12,6 @@
 
 #include "push.h"
 
-void	commands(char *com, t_stack **a, t_stack **b, char debug)
-{
-	if (!(ft_strcmp(com, "sa")))
-		sa(a, b, debug, debug);
-	else if (!(ft_strcmp(com, "sb")))
-		sb(a, b, debug, debug);
-	else if (!(ft_strcmp(com, "ss")))
-		ss(a, b, debug, debug);
-	else if (!(ft_strcmp(com, "pa")))
-		pa(b, a, debug, debug);
-	else if (!(ft_strcmp(com, "pb")))
-		pb(a, b, debug, debug);
-	else if (!(ft_strcmp(com, "ra")))
-		ra(a, b, debug, debug);
-	else if (!(ft_strcmp(com, "rb")))
-		rb(a, b, debug, debug);
-	else if (!(ft_strcmp(com, "rr")))
-		rr(a, b, debug, debug);
-	else if (!(ft_strcmp(com, "rra")))
-		rra(a, b, debug, debug);
-	else if (!(ft_strcmp(com, "rrb")))
-		rrb(a, b, debug, debug);
-	else if (!(ft_strcmp(com, "rrr")))
-		rrr(a, b, debug, debug);
-	else
-		ft_error();
-}
-
 void	checker(t_stack *a, int wrong, char debug)
 {
 	t_stack		*b;
@@ -48,7 +20,7 @@ void	checker(t_stack *a, int wrong, char debug)
 	b = NULL;
 	while (get_next_line(0, &line))
 	{
-		commands(line, &a, &b, debug);
+		commands(line, &a, &b);
 		if (wrong == 0)
 		{
 			write(1, "KO\n", 3);

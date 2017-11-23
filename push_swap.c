@@ -12,11 +12,38 @@
 
 #include "push.h"
 
+void	sort_print(int stack, int length, int wrong, char debug)
+{
+	t_stack		*a;
+	t_stack		*b;
+	t_stack		*list;
+	t_op		*op;
+	t_op		*ptr;
+
+	b = NULL;
+	a = push_to_list(stack, length);
+	list = push_to_list(stack, length);
+	op = sort_it(list, --length, wrong);
+	del_stack(list);
+	list = a;
+	while (ptr)
+	{
+		if (debug)
+			print_stack_a_b(a, b);
+		else
+			ft_printf("%s\n", ptr->op);
+		commands(ptr->op, &a, &b);
+		ptr = ptr->next;
+	}
+	if (debug)
+		print_stack_a_b(a, b);
+	del_op(op);
+}
+
 int		main(int ar, char **av)
 {
 	int			*stack;
 	int			wrong;
-	t_stack		*list;
 	char		debug;
 
 	wrong = 0;
@@ -34,8 +61,7 @@ int		main(int ar, char **av)
 		}
 		else
 		{
-			list = push_to_list(stack, (ar - debug));
-			sort_it(list, --ar - debug, wrong, debug);
+			sort_print(stack, ar - debug, wrong, debug);
 		}
 	}
 	return (0);

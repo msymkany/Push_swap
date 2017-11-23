@@ -29,39 +29,18 @@ void	rotate(t_stack **s)
 	}
 }
 
-void	ra(t_stack **a, t_stack **b, char print, char debug)
+void	ra(t_stack **a)
 {
 	rotate(a);
-	if (print)
-		write(1, "ra\n", 3);
-	if (debug)
-	{
-		if (read(0, NULL, 1))
-			print_stack_a_b(*a, *b);
-	}
 }
 
-void	rb(t_stack **a, t_stack **b, char print, char debug)
+void	rb(t_stack **b)
 {
 	rotate(b);
-	if (print)
-		write(1, "rb\n", 3);
-	if (debug)
-	{
-		if (read(0, NULL, 1))
-			print_stack_a_b(*a, *b);
-	}
 }
 
-void	rr(t_stack **a, t_stack **b, char print, char debug)
+void	rr(t_stack **a, t_stack **b)
 {
 	rotate(a);
 	rotate(b);
-	if (print)
-		write(1, "rr\n", 3);
-	if (debug)
-	{
-		if (read(0, NULL, 1))
-			print_stack_a_b(*a, *b);
-	}
 }

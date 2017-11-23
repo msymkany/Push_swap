@@ -36,6 +36,7 @@ SRC_2 = push_swap.c\
 		ft_error.c\
 		ft_usage.c\
 		stack_list.c\
+		op_list.c\
 		op_swap.c\
 		op_push.c\
 		op_rotate.c\

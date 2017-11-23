@@ -16,7 +16,7 @@ t_stack		*new_node(void)
 {
 	t_stack		*new;
 
-	new = (t_stack *)malloc(sizeof(stack_t));
+	new = (t_stack *)malloc(sizeof(t_stack));
 	if (new)
 		new->next = NULL;
 	return (new);
@@ -37,4 +37,18 @@ t_stack		*push_to_list(int *arr, int n)
 	}
 	next->num = *arr++;
 	return (head);
+}
+
+void		del_stack(t_stack *a)
+{
+	t_stack		*ptr;
+
+	ptr = a;
+	while (ptr)
+	{
+		ptr = ptr->next;
+		free(a);
+		a = NULL;
+		a = ptr;
+	}
 }

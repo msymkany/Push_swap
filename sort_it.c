@@ -36,9 +36,9 @@
 //	while (count_misplaced(a))
 //	{
 //		if (a->next->num != min && a->num > a->next->num)
-//			sa(&a, &b, 1, debug);
+//			add_op(op, "sa");
 //		else
-//			ra(&a, &b, 1, debug);
+//			add_op(op, "ra");
 //	}
 //}
 
@@ -49,77 +49,79 @@
 //	return (a->num);
 //}
 
-void	sort_three_max(t_stack *a, t_stack *b, int len_a, char debug)
+void	sort_three_max(t_stack *a, t_stack *b, int len_a, t_op *op)
 {
 	while (len_a > 1)
 	{
 		if (a->num > a->next->num)
 		{
 			if (a->next->next && a->num > a->next->next->num)
-				ra(&a, &b, 1, debug);
+				add_op(op, "ra");
 			else
 			{
-				sa(&a, &b, 1, debug);
+				add_op(op, "sa");
 			}
 		}
 		else if (a->next->next && a->next->next->num < a->next->num)
-			rra(&a, &b, 1, debug);
+			add_op(op, "rra");
 		len_a--;
 	}
 }
 
-void	sort_almost_reverse_stack(t_stack *a, t_stack *b, char debug)
+void	sort_almost_reverse_stack(t_stack *a, t_stack *b, t_op *op)
 {
 	while (a->next->next)
 	{
 		if (a->num < a->next->num || !b)
-			pb(&a, &b, 1, debug);
+			add_op(op, "pb");
 		else
 		{
-			pb(&a, &b, 1, debug);
-			rb(&a, &b, 1, debug);
+			add_op(op, "pb");
+			add_op(op, "rb");
 		}
 	}
 	if (a->num > a->next->num)
-		sa(&a, &b, 1, debug);
+		add_op(op, "sa");
 	while (b->next && b->num > b->next->num)
-		pa(&b, &a, 1, debug);
+		add_op(op, "pa");
 	while (b)
-		merge_stacks(&a, &b, debug);
+		merge_stacks(&a, &b, op);
 	while (get_last_num(a) < a->num)
 	{
-		rra(&a, &b, 1, debug);
+		add_op(op, "rra");
 	}
 }
 
-void	sort_reverse_stack(t_stack *a, t_stack *b, char debug)
+void	sort_reverse_stack(t_stack *a, t_stack *b, t_op *op)
 {
-	pb(&a, &b, 1, debug);
+	add_op(op, "pb");
 	while (a->next->next)
 	{
-		pb(&a, &b, 1, debug);
-		rb(&a, &b, 1, debug);
+		add_op(op, "pb");
+		add_op(op, "rb");
 	}
-	sa(&a, &b, 1, debug);
+	add_op(op, "sa");
 	while (b)
-		pa(&b, &a, 1, debug);
-	rra(&a, &b, 1, debug);
-	rra(&a, &b, 1, debug);
+		add_op(op, "pa");
+	add_op(op, "rra");
+	add_op(op, "rra");
 }
 
-void	sort_it(t_stack *a, int length, int wrong, char debug)
+t_op	*sort_it(t_stack *a, int length, int wrong)
 {
 	t_stack		*b;
+	t_op		*op;
 
 	b = NULL;
 	wrong = count_misplaced(a);
 	if (length <= 3)
-		sort_three_max(a, b, length, debug);
+		sort_three_max(a, b, length, op);
 	else if (length > 3 && (wrong == length - 1))
-		sort_reverse_stack(a, b, debug);
+		sort_reverse_stack(a, b, op);
 	else if (wrong >= length - 1 - length / 10)
 //	else if (length > 10 && (wrong >= length - 1 - length / 10))
-		sort_almost_reverse_stack(a, b, debug);
+		sort_almost_reverse_stack(a, b, op);
 	else
-		quicksort(a, b, debug);
+		quicksort(a, b, op);
+	return (op);
 }

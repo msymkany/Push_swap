@@ -44,10 +44,10 @@
 //	}
 //}
 
-void	quicksort(t_stack *a, t_stack *b, char debug)
+void	quicksort(t_stack *a, t_stack *b, t_op *op)
 {
-	if (debug)
-		print_stack_a_b(a, b);
+
+	print_stack_a_b(a, b);
 	ft_printf("quicksort here");
 //	if (a->next->next && !stack_a_sorted(a))
 //		divide_a(a, b, debug);

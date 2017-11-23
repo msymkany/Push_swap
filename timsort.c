@@ -33,17 +33,17 @@ int		count_misplaced(t_stack *a)
 	return (wrong);
 }
 
-void	divide(t_stack **a, t_stack **b, int wrong, char debug)
+void	divide(t_stack **a, t_stack **b, int wrong, t_op *op)
 {
 	while (wrong)
 	{
 		if ((*a)->num > (*a)->next->num)
 			wrong--;
-		pb(a, b, 1, debug);
+		add_op(op, "pb");
 	}
 }
 
-void	merge_stacks(t_stack **a, t_stack **b, char debug)
+void	merge_stacks(t_stack **a, t_stack **b, t_op *op)
 {
 	int		last_a;
 
@@ -51,15 +51,15 @@ void	merge_stacks(t_stack **a, t_stack **b, char debug)
 	if (((*b) && (*a)->num > (*b)->num) && ((*b)->num > last_a ||
 		last_a > (*a)->num))
 	{
-		pa(b, a, 1, debug);
+		add_op(op, "pa");
 	}
 	else if ((*b) && ((*b)->num > last_a && last_a > (*a)->num))
-		pa(b, a, 1, debug);
+		add_op(op, "pa");
 	else
-		rra(a, b, 1, debug);
+		add_op(op, "rra");
 }
 
-void	timsort(t_stack *a, int wrong, char debug)
+void	timsort(t_stack *a, int wrong, t_op *op)
 {
 	t_stack		*b;
 
@@ -67,14 +67,14 @@ void	timsort(t_stack *a, int wrong, char debug)
 	while (wrong)
 	{
 		wrong = (wrong % 2) ? wrong / 2 + 1 : wrong / 2;
-		divide(&a, &b, wrong, debug);
+		divide(&a, &b, wrong, op);
 		while (b)
 		{
-			merge_stacks(&a, &b, debug);
+			merge_stacks(&a, &b, op);
 		}
 		while (get_last_num(a) < a->num)
 		{
-			rra(&a, &b, 1, debug);
+			add_op(op, "rra");
 		}
 		wrong = count_misplaced(a);
 	}
