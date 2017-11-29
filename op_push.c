@@ -25,7 +25,7 @@ void	push(t_stack **frst, t_stack **scnd)
 	}
 }
 
-void	pa(t_stack **b, t_stack **a)
+void	pa(t_stack **a, t_stack **b)
 {
 	push(b, a);
 }
