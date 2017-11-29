@@ -31,9 +31,10 @@ void	sort_print(int *stack, int length, int wrong, char debug)
 	while (ptr)
 	{
 		if (debug)
+		{
 			print_stack_a_b(a, b);
-		else
-			ft_printf("%s\n", ptr->op);
+		}
+		ft_printf("%s\n", ptr->op);
 		commands(ptr->op, &a, &b);
 		ptr = ptr->next;
 	}

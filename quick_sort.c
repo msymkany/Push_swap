@@ -44,7 +44,7 @@
 //	}
 //}
 
-void	quicksort(t_stack *a, t_stack *b, t_op *op)
+void	quicksort(t_stack *a, t_stack *b, t_op **op)
 {
 
 	print_stack_a_b(a, b);
