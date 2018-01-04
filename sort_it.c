@@ -11,6 +11,10 @@
 /* ************************************************************************** */
 
 #include "push.h"
+#define CURRNUM (*a)->num
+#define NEXTNUM (*a)->next->num
+#define THIRDNUM (*a)->next->next->num
+#define THIRD (*a)->next->next
 
 //int		get_min(t_stack *a)
 //{
@@ -46,75 +50,75 @@
 //{
 //	while (a->next->next)
 //		a = a->next;
-//	return (a->num);
+//	return (CURRNUM);
 //}
 
-void	sort_three_max(t_stack *a, int len_a, t_op **op)
+void	sort_three_max(t_stack **a, int len_a, t_op **op)
 {
 	while (len_a > 1)
 	{
-		if (a->num > a->next->num)
+		if (CURRNUM > NEXTNUM)
 		{
-			if (a->next->next && a->num > a->next->next->num)
-				add_op(op, "ra", &a, NULL);
+			if (THIRD && CURRNUM > THIRDNUM)
+				add_op(op, "ra", a, NULL);
 			else
-				add_op(op, "sa", &a, NULL);
+				add_op(op, "sa", a, NULL);
 		}
-		else if (a->next->next && a->next->next->num < a->next->num)
+		else if (THIRD && THIRDNUM < NEXTNUM)
 		{
-			add_op(op, "rra", &a, NULL);
+			add_op(op, "rra", a, NULL);
 		}
 		len_a--;
 	}
 }
 
-void	sort_almost_reverse_stack(t_stack *a, t_stack *b, t_op **op)
+void	sort_almost_reverse_stack(t_stack **a, t_stack *b, t_op **op)
 {
-	while (a->next->next)
+	while (THIRD)
 	{
-		if (a->num < a->next->num || !b)
-			add_op(op, "pb", &a, &b);
+		if (CURRNUM < NEXTNUM || !b)
+			add_op(op, "pb", a, &b);
 		else
 		{
-			add_op(op, "pb", &a, &b);
-			add_op(op, "rb", &a, &b);
+			add_op(op, "pb", a, &b);
+			add_op(op, "rb", a, &b);
 		}
 	}
-	if (a->num > a->next->num)
-		add_op(op, "sa", &a, NULL);
+	if (CURRNUM > NEXTNUM)
+		add_op(op, "sa", a, NULL);
 	while (b->next && b->num > b->next->num)
-		add_op(op, "pa", &a, &b);
+		add_op(op, "pa", a, &b);
 	while (b)
-		merge_stacks(&a, &b, op);
-	while (get_last_num(a) < a->num)
+		merge_stacks(a, &b, op);
+	while (get_last_num(*a) < CURRNUM)
 	{
-		add_op(op, "rra", &a, NULL);
+		add_op(op, "rra", a, NULL);
 	}
 }
 
-void	sort_reverse_stack(t_stack *a, t_stack *b, t_op **op)
+void	sort_reverse_stack(t_stack **a, t_stack *b, t_op **op)
 {
-	add_op(op, "pb", &a, &b);
-	while (a->next->next)
+	add_op(op, "pb", a, &b);
+	while (THIRD)
 	{
-		add_op(op, "pb", &a, &b);
-		add_op(op, "rb", &a, &b);
+		add_op(op, "pb", a, &b);
+		add_op(op, "rb", a, &b);
 	}
-	add_op(op, "sa", &a, NULL);
+	add_op(op, "sa", a, NULL);
 	while (b)
-		add_op(op, "pa", &a, &b);
-	add_op(op, "rra", &a, NULL);
-	add_op(op, "rra", &a, NULL);
+		add_op(op, "pa", a, &b);
+	add_op(op, "rra", a, NULL);
+	add_op(op, "rra", a, NULL);
 }
 
-t_op	*sort_it(t_stack *a, int length, int wrong)
+t_op	*sort_it(t_stack **a, int length, int wrong)
 {
 	t_stack		*b;
 	t_op		*op;
 
 	b = NULL;
 	op = NULL;
-	wrong = count_misplaced(a);
+	wrong = count_misplaced(*a);
 	if (length <= 3)
 		sort_three_max(a, length, &op);
 	else if (length > 3 && (wrong == length - 1))
@@ -122,7 +126,8 @@ t_op	*sort_it(t_stack *a, int length, int wrong)
 	else if (wrong >= length - 1 - length / 10)
 //	else if (length > 10 && (wrong >= length - 1 - length / 10))
 		sort_almost_reverse_stack(a, b, &op);
-	else
-		quicksort(a, b, &op);
+    print_stack_a_b(*a, b); // test
+//	else
+//		quicksort(a, b, &op, length);
 	return (op);
 }

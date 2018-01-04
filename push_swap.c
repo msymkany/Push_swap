@@ -24,7 +24,8 @@ void	sort_print(int *stack, int length, int wrong, char debug)
 	ptr = NULL;
 	a = push_to_list(stack, length);
 	list = push_to_list(stack, length);
-	op = sort_it(list, --length, wrong);
+	op = sort_it(&list, --length, wrong);
+    print_stack_a_b(list, b); //test
 	del_stack(list);
 //	list = a;
 	ptr = op;
