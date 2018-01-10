@@ -42,7 +42,7 @@ SRC_2 = push_swap.c\
 		op_rotate.c\
 		op_reverse.c\
 		debug_option.c\
-		#quick_sort.c \
+		quick_sort.c \
 
 OBJ_2 = $(SRC_2:.c=.o)
 

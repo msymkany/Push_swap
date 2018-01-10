@@ -60,7 +60,7 @@ void	sort_three_max(t_stack **a, int len_a, t_op **op)
 		if (CURRNUM > NEXTNUM)
 		{
 			if (THIRD && CURRNUM > THIRDNUM)
-				add_op(op, "ra", a, NULL);
+                add_op(op, "ra", a, NULL);
 			else
 				add_op(op, "sa", a, NULL);
 		}
@@ -77,7 +77,7 @@ void	sort_almost_reverse_stack(t_stack **a, t_stack *b, t_op **op)
 	while (THIRD)
 	{
 		if (CURRNUM < NEXTNUM || !b)
-			add_op(op, "pb", a, &b);
+            add_op(op, "pb", a, &b);
 		else
 		{
 			add_op(op, "pb", a, &b);
@@ -92,7 +92,7 @@ void	sort_almost_reverse_stack(t_stack **a, t_stack *b, t_op **op)
 		merge_stacks(a, &b, op);
 	while (get_last_num(*a) < CURRNUM)
 	{
-		add_op(op, "rra", a, NULL);
+        add_op(op, "rra", a, NULL);
 	}
 }
 
@@ -126,8 +126,10 @@ t_op	*sort_it(t_stack **a, int length, int wrong)
 	else if (wrong >= length - 1 - length / 10)
 //	else if (length > 10 && (wrong >= length - 1 - length / 10))
 		sort_almost_reverse_stack(a, b, &op);
-    print_stack_a_b(*a, b); // test
-//	else
-//		quicksort(a, b, &op, length);
+//    print_stack_a_b(*a, b); // test
+	else
+    {
+        quicksort(a, &b, &op, length, 'a');
+    }
 	return (op);
 }

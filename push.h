@@ -59,7 +59,7 @@ t_op				*new_node_op(char *op);
 void				add_op(t_op **list, char *op, t_stack **a, t_stack **b);
 void				del_op(t_op *op);
 
-void				quicksort(t_stack *a, t_stack *b, t_op **op, int len);
+void				quicksort(t_stack **a, t_stack **b, t_op **op, int len, char stack);
 
 //operations
 void				swap(t_stack **s);
