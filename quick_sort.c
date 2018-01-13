@@ -15,12 +15,82 @@
 #define NEXTNUM (*a)->next->num
 #define THIRDNUM (*a)->next->next->num
 #define THIRD (*a)->next->next
+#define CURRNUMB (*b)->num
+#define NEXTNUMB (*b)->next->num
 #define THIRDB (*b)->next->next
 
-//int 	get_median(t_stack *a)
+//int		partition(int *arr, int left, int right)
+//{
+//	int 	j;
+//	int 	i;
+//	int		num;
+//	int		swap;
+//
+//	i = left - 1;
+//	j = left;
+//	num = arr[right];
+//	while (j <= right - 1)
+//	{
+//		if (arr[j] <= num)
+//		{
+//			i++;
+//			swap = arr[j];
+//			arr[j] = arr[i];
+//			arr[i] = swap;
+//		}
+//		j++;
+//	}
+//	swap = arr[i + 1];
+//	arr[i + 1] = arr[right];
+//	arr[right] = swap;
+//	return (i + 1);
+//}
+//
+//int		quickmedian(int *arr, int left, int right, int med)
 //{
 //
 //}
+
+int 	get_median(t_stack *a, int len)
+{
+	int 	arr[len];
+	int		i;
+	int 	med;
+
+	i = 0;
+	while (i < len)
+	{
+		arr[i] = a->num;
+		a = a->next;
+		i++;
+	}
+	med = ((len / 2) % 2 == 0) ? len : (len + 1);
+ 	med = quickmedian(arr, 0, len - 1, len - 1);
+}
+
+void	sort_short(t_stack **a, t_stack **b, t_op **op, int *len)
+{
+	if (CURRNUM > NEXTNUM)
+		add_op(op, "sa", a, b);
+	if (CURRNUMB < NEXTNUMB)
+		add_op(op, "sb", a, b);
+	if (len[0] == 3)
+		add_op(op, "ra", a, b);
+	if (len[1] == 3)
+		add_op(op, "rb", a, b);
+	if (CURRNUM > NEXTNUM)
+		add_op(op, "sa", a, b);
+	if (CURRNUMB < NEXTNUMB)
+		add_op(op, "sb", a, b);
+	if (len[0] == 3)
+		add_op(op, "rra", a, b);
+	if (len[1] == 3)
+		add_op(op, "rrb", a, b);
+	if (CURRNUM > NEXTNUM)
+		add_op(op, "sa", a, b);
+	if (CURRNUMB < NEXTNUMB)
+		add_op(op, "sb", a, b);
+}
 
 int 	get_mean(t_stack **a, int len)
 { // get median, not mean!!!!
@@ -56,9 +126,9 @@ int     divide_b(t_stack **a, t_stack **b, t_op **op, int len)
 	mean = get_mean(b, len);
 	while (i < len)
 	{
-		if (CURRNUM > mean)
+		if (CURRNUMB > mean)
 		{
-            add_op(op, "pa", a, b);
+			add_op(op, "pa", a, b);
 			pa++;
 		}
 		else
@@ -105,31 +175,38 @@ int     divide_a(t_stack **a, t_stack **b, t_op **op, int len)
 ** pushed - numbers that was pushed to second stack
 */
 
-void	quicksort(t_stack **a, t_stack **b, t_op **op, int len, char stack)
+void	quicksort(t_stack **a, t_stack **b, t_op **op, int *len, char stack)
 {
-	int     pushed;
+//	int     pushed;
+//
+//	pushed = len;
 
-	pushed = len;
 //	print_stack_a_b(*a, *b); // test
 //	(void) op;
 //	ft_printf("quicksort here"); // test
-	if (len > 3)
+	if ((stack == 'a' && len[0] > 3) || (stack == 'b' && len[1] > 3))
 	{
 		if (THIRD && !stack_a_sorted(*a))
 		{
-			pushed = divide_a(a, b, op, pushed);
-			quicksort(a, b, op, pushed, 'a');
+			len[1] = divide_a(a, b, op, len[0]);
+			len[0] -= len[1];
+			quicksort(a, b, op, len, 'a');
 		}
 		else if (THIRDB && !stack_b_sorted(*b))
 		{
-			pushed = divide_b(a, b, op, pushed);
-			quicksort(a, b, op, pushed, 'b');
+			len[0] = divide_b(a, b, op, len[1]);
+			len[1] -= len[0];
+			quicksort(a, b, op, len, 'b');
 		}
 	}
 	else
 	{
-//		ft_printf("sort_three_max()");
-		while (len--)
-			(stack == 'a') ? add_op(op, "pa", a, b) : add_op(op, "pb", a, b);
+		sort_short(a, b, op, len);
+		if (stack == 'a')
+			while ((len[0])--)
+				add_op(op, "pa", a, b);
+		else
+			while ((len[1])--)
+				add_op(op, "pa", a, b);
 	}
 }
