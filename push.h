@@ -38,7 +38,7 @@ typedef struct		s_op
 void				ft_error(void);
 void				ft_usage(char *name);
 
-int					*read_stack(int ar, char **av, int *j);
+int					*read_stack(int ar, char **av, int *j, int count_flag);
 int					all_sorted(t_stack *a, t_stack *b);
 int					stack_a_sorted(t_stack *a);
 int					stack_b_sorted(t_stack *b);

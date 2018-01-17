@@ -188,12 +188,7 @@ int     divide_a(t_stack **a, t_stack **b, t_op **op, int len)
 void	quicksort(t_stack **a, t_stack **b, t_op **op, int *len, char stack)
 {
 	int     i;
-//
-//	pushed = len;
 
-//	print_stack_a_b(*a, *b); // test
-//	(void) op;
-//	ft_printf("quicksort here"); // test
 	if ((stack == 'a' && len[0] > 3) || (stack == 'b' && len[1] > 3))
 	{
 		if (THIRD && !stack_a_sorted(*a))

@@ -63,19 +63,19 @@ long int	atoi_push(const char *str)
 	return ((r * s));
 }
 
-int			*read_stack(int ar, char **av, int *wrong)
+int			*read_stack(int ar, char **av, int *wrong, int j)
 {
 	size_t		i;
-	size_t		j;
+//	size_t		j;
 	long int	num;
 	int			*stack;
 
 	i = 0;
-	j = 1;
-	if (ft_strequ(av[j], "-v"))
-		j++;
+//	j = 1;
+//	if (ft_strequ(av[j], "-v"))
+//		j++;
 	stack = (int *)malloc(sizeof(int) * (ar - 1));
-	while ((int)j < ar)
+	while (j < ar)
 	{
 		arg_check(av[j]);
 		num = atoi_push(av[j++]);
