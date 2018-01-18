@@ -198,7 +198,7 @@ void	quicksort(t_stack **a, t_stack **b, t_op **op, int *len, char stack)
 			quicksort(a, b, op, len, 'a');
 //			quicksort(a, b, op, len, 'b');
 		}
-		if (THIRDB && !stack_b_sorted(*b))
+		if (*b && (*b)->next && THIRDB && !stack_b_sorted(*b))
 		{
 			len[0] = divide_b(a, b, op, len[1]);
 			len[1] -= len[0];

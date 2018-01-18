@@ -45,18 +45,18 @@ int		main(int ar, char **av)
 	int			*stack;
 	int			wrong;
 	t_stack		*a;
-	char		debug;
+	char		flag;
+	int 		count_flag;
 
 	wrong = 0;
-	debug = 0;
-	if (ar == 1 || (ar == 2 && ft_strequ(av[1], "-v")))
+	flag = 0;
+	if (ar == 1)
 		ft_usage(av[0]);
 	else
 	{
-		if (ft_strequ(av[1], "-v"))
-			debug = 1;
-		stack = (read_stack(ar, av, &wrong));
-		a = push_to_list(stack, (ar - debug));
+		count_flag = get_flags(ar, av, &flag);
+		stack = (read_stack(ar, av, &wrong, count_flag));
+		a = push_to_list(stack, (ar - count_flag));
 		checker(a, wrong);
 	}
 	return (0);

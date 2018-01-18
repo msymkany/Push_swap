@@ -74,7 +74,7 @@ int			*read_stack(int ar, char **av, int *wrong, int j)
 //	j = 1;
 //	if (ft_strequ(av[j], "-v"))
 //		j++;
-	stack = (int *)malloc(sizeof(int) * (ar - 1));
+	stack = (int *)malloc(sizeof(int) * ar);
 	while (j < ar)
 	{
 		arg_check(av[j]);
@@ -87,4 +87,32 @@ int			*read_stack(int ar, char **av, int *wrong, int j)
 		stack[i++] = (int)num;
 	}
 	return (stack);
+}
+
+int 	get_flags(int ar, char **av, char *flag)
+{
+	int  i;
+
+	i = 1;
+	while (i < ar && av[i][0] == '-')
+	{
+		if (ft_strequ(av[i], "-v")) //visualization
+			(*flag) = (*flag) | 1;
+		else if (ft_strequ(av[i], "-f")) // first
+			(*flag) = (*flag) | 2;
+		else if (ft_strequ(av[i], "-l")) // last
+			(*flag) = (*flag) | 4;
+		else if (ft_strequ(av[i], "-c")) // count op
+			(*flag) = (*flag) | 8;
+		else if (ft_isdigit(av[i][1]))
+			break ;
+		else
+			ft_error();
+		i++;
+	}
+	if (!av[i])
+		ft_usage(av[0]);
+	else if ((*flag) & 1)
+		(*flag) = (*flag) & 9;
+	return (i);
 }

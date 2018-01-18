@@ -67,31 +67,6 @@ void	sort_print(int *stack, int length, int wrong, char flag)
 	del_op(op);
 }
 
-int 	get_flags(int ar, char **av, char *flag)
-{
-	int  i;
-
-	i = 1;
-	while (i < ar && av[i][0] == '-')
-	{
-		if (ft_strequ(av[1], "-v")) //visualization
-			(*flag) = (*flag) | 1;
-		else if (ft_strequ(av[1], "-f")) // first
-			(*flag) = (*flag) | 2;
-		else if (ft_strequ(av[1], "-l")) // last
-			(*flag) = (*flag) | 4;
-		else if (ft_strequ(av[1], "-c")) // count op
-			(*flag) = (*flag) | 8;
-		else
-			ft_error();
-		i++;
-	}
-	if (!av[i])
-		ft_usage(av[0]);
-	else if ((*flag) & 1)
-		(*flag) = (*flag) & 9;
- 	return (i);
-}
 
 int		main(int ar, char **av)
 {
@@ -108,7 +83,7 @@ int		main(int ar, char **av)
 	else
 	{
 		count_flag = get_flags(ar, av, &flag);
-		stack = (read_stack(ar - count_flag, av, &wrong, count_flag));
+		stack = (read_stack(ar, av, &wrong, count_flag));
 		if (wrong == 0)
 			exit(0);
 		else

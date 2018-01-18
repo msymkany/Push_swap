@@ -29,7 +29,7 @@ t_stack		*push_to_list(int *arr, int n)
 
 	next = new_node();
 	head = next;
-	while (--n > 1)
+	while (n-- > 1)
 	{
 		next->num = *arr++;
 		next->next = new_node();

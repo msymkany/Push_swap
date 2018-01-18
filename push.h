@@ -80,5 +80,7 @@ void				rrr(t_stack **a, t_stack **b);
 
 void				print_stack_a_b(t_stack *a, t_stack *b);
 void				commands(char *com, t_stack **a, t_stack **b);
+int 				get_flags(int ar, char **av, char *flag);
+
 
 #endif
