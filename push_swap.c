@@ -12,26 +12,27 @@
 
 #include "push.h"
 
-void	visualize(int *stack, int length, t_op *op)
+int		visualize(int *stack, int length, t_op *op)
 {
 	t_stack		*a;
 	t_stack		*b;
-//	t_stack		*ptr;
+	int 		num;
 
+	num = 0;
 	b = NULL;
 	a = push_to_list(stack, length);
-//	ptr = a;
 	while (op)
 	{
+		print_stack_a_b(a, b);
+		read(0, NULL, 1);
 		ft_printf("%s\n", op->op);
-		print_stack_a_b(a, b); //test
 		commands(op->op, &a, &b);
-//		ptr = ptr->next;
 		op = op->next;
-
+		num++;
 	}
 	print_stack_a_b(a, b); //test
 	del_stack(a);
+	return (num);
 }
 
 void	sort_print(int *stack, int length, int wrong, char flag)
@@ -46,11 +47,11 @@ void	sort_print(int *stack, int length, int wrong, char flag)
 	list = push_to_list(stack, length);
 	if (flag & 2)
 		print_stack_a_b(list, NULL);
-	op = sort_it(&list, --length, wrong);
+	op = sort_it(&list, length, wrong);
 	if (flag & 4)
 		print_stack_a_b(list, NULL);
 	if (flag & 1)
-		visualize(stack, length, op);
+		num = visualize(stack, length, op);
 	else
 	{
 		ptr = op;
@@ -62,7 +63,7 @@ void	sort_print(int *stack, int length, int wrong, char flag)
 		}
 	}
 	if (flag & 8)
-		ft_printf("%d\n", num);
+		ft_printf("Number of operations: %d\n", num);
 	del_stack(list);
 	del_op(op);
 }
@@ -78,7 +79,7 @@ int		main(int ar, char **av)
 	wrong = 0;
 	flag = 0;
 	count_flag = 0;
-	if (ar == 1) //|| (ar == 2 && ft_strequ(av[1], "-v")))
+	if (ar == 1)
 		ft_usage(av[0]);
 	else
 	{

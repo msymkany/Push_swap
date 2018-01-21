@@ -119,7 +119,8 @@ t_op	*sort_it(t_stack **a, int length, int wrong)
 
 	b = NULL;
 	op = NULL;
-	wrong = count_misplaced(*a);
+//	print_stack_a_b(*a, b); // test
+//	wrong = count_misplaced(*a); // already done
 	if (length <= 3)
 		sort_three_max(a, length, &op);
 	else if (length > 3 && (wrong == length - 1))
@@ -127,7 +128,6 @@ t_op	*sort_it(t_stack **a, int length, int wrong)
 	else if (wrong >= length - 1 - length / 10)
 //	else if (length > 10 && (wrong >= length - 1 - length / 10))
 		sort_almost_reverse_stack(a, b, &op);
-//    print_stack_a_b(*a, b); // test
 	else
     {
 		ar = (int *)malloc(2 * (sizeof(int)));
