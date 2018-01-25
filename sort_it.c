@@ -133,7 +133,8 @@ t_op	*sort_it(t_stack **a, int length, int wrong)
 		ar = (int *)malloc(2 * (sizeof(int)));
 		ar[0] = length; // stack a
 		ar[1] = 0; // stack b
-        quicksort(a, &b, &op, ar, 'a');
+        quicksort(a, &b, &op, ar);
+		free(ar);
     }
 	return (op);
 }

@@ -79,6 +79,7 @@ int		main(int ar, char **av)
 	wrong = 0;
 	flag = 0;
 	count_flag = 0;
+	stack = 0;
 	if (ar == 1)
 		ft_usage(av[0]);
 	else
@@ -86,11 +87,16 @@ int		main(int ar, char **av)
 		count_flag = get_flags(ar, av, &flag);
 		stack = (read_stack(ar, av, &wrong, count_flag));
 		if (wrong == 0)
+		{
+//			while(1); //test
 			exit(0);
+		}
 		else
 		{
 			sort_print(stack, ar - count_flag, wrong,flag);
 		}
 	}
+	free(stack);
+	while (1);
 	return (0);
 }
