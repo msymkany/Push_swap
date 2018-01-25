@@ -97,6 +97,6 @@ int		main(int ar, char **av)
 		}
 	}
 	free(stack);
-	while (1);
+//	while (1);
 	return (0);
 }
