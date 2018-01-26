@@ -106,94 +106,63 @@ int     divide_a(t_stack **a, t_stack **b, t_op **op, int len)
 ** pushed - numbers that was pushed to second stack
 */
 
-void	sort_b(t_stack **a, t_stack **b, t_op **op, int **len)
+void	sort_b(t_stack **a, t_stack **b, t_op **op, int *len)
 {
 //	int i;
 
-	if ((*len)[1] > 3 && !stack_a_sorted(*b))
+	if (len[1] > 3 && !stack_a_sorted(*b))
 	{
-		(*len)[0] += divide_b(a, b, op, (*len)[1]);
-		(*len)[1] -= (*len)[0];
-		sort_b(a, b, op, len);
+		len[0] = divide_b(a, b, op, len[1]);
+		len[1] -= len[0];
+		if (len[1] > 3 && !stack_a_sorted(*b))
+			sort_b(a, b, op, len);
 	}
 	else
 	{
 //		i = 0;
-		sort_short(a, b, op, (*len));
-//		while (i++ < (*len)[1])
-		while ((*len)[1]-- > 0)
+		sort_short(a, b, op, len);
+//		while (i++ < len[1])
+		while (len[1]-- > 0)
 			add_op(op, "pa", a, b);
 	}
+	if (*b)
+		sort_b(a, b, op, len);
 //	sort_a(a, b, op, len);
 }
 
-void	sort_a(t_stack **a, t_stack **b, t_op **op, int **len)
+void	sort_a(t_stack **a, t_stack **b, t_op **op, int *len)
 {
-//	int i;
+	int i;
 
-	if ((*len)[0] > 3 && !stack_a_sorted(*a))
+	i = 0;
+	if (len[0] > 3 && !stack_a_sorted(*a))
 	{
-		(*len)[1] += divide_a(a, b, op, (*len)[0]);
-		(*len)[0] -= (*len)[1];
-		sort_a(a, b, op, len);
-		if (*b)
-			sort_b(a, b, op, len);
-		sort_a(a, b, op, len);
+		i = divide_a(a, b, op, len[0]);
+		len[1] = i;
+		len[0] -= i;
+		if (len[0] > 3 && !stack_a_sorted(*a))
+			sort_a(a, b, op, len);
+//		sort_a(a, b, op, len);
 	}
 	else
 	{
 //		i = 0;
-		sort_short(a, b, op, (*len));
-		while ((*len)[1]-- > 0)
+		sort_short(a, b, op, len);
+		while (len[1]-- > 0)
 			add_op(op, "pa", a, b);
 	}
+	if (*b)
+		sort_b(a, b, op, len);
 }
 
 void	quicksort(t_stack **a, t_stack **b, t_op **op, int *len)
 {
 //	int i;
-	while (!all_sorted(*a, *b))
-	{
+//	while (!all_sorted(*a, *b))
+//	{
 		if (len[0] > 3 && !stack_a_sorted(*a))
-			sort_a(a, b, op, &len);
-		else
-			sort_short(a, b, op, len);
-	}
-}
-
-
-//	if ((stack == 'a' && len[0] > 3) || (stack == 'b' && len[1] > 3))
-//	{
-//		if (THIRD && !stack_a_sorted(*a))
-//		{
-//			len[1] = divide_a(a, b, op, len[0]);
-//			len[0] -= len[1];
-//			quicksort(a, b, op, len, 'a');
-////			quicksort(a, b, op, len, 'b');
-//		}
-//		if (*b && (*b)->next && THIRDB && !stack_b_sorted(*b))
-//		{
-//			len[0] = divide_b(a, b, op, len[1]);
-//			len[1] -= len[0];
-//			quicksort(a, b, op, len, 'b');
-////			quicksort(a, b, op, len, 'a');
-//		}
-//	}
-//	else
-//	{
-//		i = 0;
-//		sort_short(a, b, op, len);
-//		if (stack == 'a')
-//		{
-//			while (i++ < (len[0]))
-//				add_op(op, "pa", a, b);
-////			quicksort(a, b, op, len, 'b');
-//		}
+			sort_a(a, b, op, len);
 //		else
-//		{
-//			while (i++ < (len[1]))
-//				add_op(op, "pa", a, b);
-////			quicksort(a, b, op, len, 'a');
-//		}
+//			sort_short(a, b, op, len);
 //	}
-
+}

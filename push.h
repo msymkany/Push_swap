@@ -61,8 +61,8 @@ void				del_op(t_op *op);
 
 void				quicksort(t_stack **a, t_stack **b, t_op **op, int *len);
 int					get_median(t_stack *a, int len);
-void				sort_a(t_stack **a, t_stack **b, t_op **op, int **len);
-void				sort_b(t_stack **a, t_stack **b, t_op **op, int **len);
+void				sort_a(t_stack **a, t_stack **b, t_op **op, int *len);
+void				sort_b(t_stack **a, t_stack **b, t_op **op, int *len);
 
 
 //operations
