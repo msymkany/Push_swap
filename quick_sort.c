@@ -93,7 +93,7 @@ int     divide_a(t_stack **a, t_stack **b, t_op **op, int len)
 			ra++;
 		}
 	}
-	if (ra < (pb - ra))
+	if (ra && ra < (pb - ra))
 		while (ra--)
 			add_op(op, "rra", a, b);
 	else
@@ -109,22 +109,25 @@ int     divide_a(t_stack **a, t_stack **b, t_op **op, int len)
 void	sort_b(t_stack **a, t_stack **b, t_op **op, int *len)
 {
 //	int i;
-
-	if (len[1] > 3 && !stack_a_sorted(*b))
-	{
-		len[0] = divide_b(a, b, op, len[1]);
-		len[1] -= len[0];
-		if (len[1] > 3 && !stack_a_sorted(*b))
-			sort_b(a, b, op, len);
-	}
-	else
+	if (len[1] <= 3)
 	{
 //		i = 0;
 		sort_short(a, b, op, len);
 //		while (i++ < len[1])
 		while (len[1]-- > 0)
+		{
 			add_op(op, "pa", a, b);
+			len[0]++;
+		}
 	}
+	if (len[1] > 3 && !stack_a_sorted(*b))
+	{
+		len[0] = divide_b(a, b, op, len[1]);
+		len[1] -= len[0];
+//		if (len[1] > 3 && !stack_a_sorted(*b))
+//			sort_b(a, b, op, len);
+	}
+
 	if (*b)
 		sort_b(a, b, op, len);
 //	sort_a(a, b, op, len);
@@ -135,22 +138,25 @@ void	sort_a(t_stack **a, t_stack **b, t_op **op, int *len)
 	int i;
 
 	i = 0;
+	if (len[0] <= 3)
+	{
+//		i = 0;
+		sort_short(a, b, op, len);
+		while (len[1]-- > 0)
+		{
+			add_op(op, "pa", a, b);
+			len[0]++;
+		}
+	}
 	if (len[0] > 3 && !stack_a_sorted(*a))
 	{
 		i = divide_a(a, b, op, len[0]);
 		len[1] = i;
 		len[0] -= i;
-		if (len[0] > 3 && !stack_a_sorted(*a))
-			sort_a(a, b, op, len);
 //		sort_a(a, b, op, len);
 	}
-	else
-	{
-//		i = 0;
-		sort_short(a, b, op, len);
-		while (len[1]-- > 0)
-			add_op(op, "pa", a, b);
-	}
+	if (len[0] > 3 && !stack_a_sorted(*a))
+		sort_a(a, b, op, len);
 	if (*b)
 		sort_b(a, b, op, len);
 }
