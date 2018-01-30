@@ -46,28 +46,32 @@ void	sort_short(t_stack **a, t_stack **b, t_op **op, int *len)
 int     divide_b(t_stack **a, t_stack **b, t_op **op, int len) // old
 {
 	int 	med;
-	int     i;
 	int     pa;
+	int		rb;
 
-	i = 0;
 	pa = 0;
-	med = get_median(*a, len);
-	while (i < len)
+	rb = 0;
+	med = get_median(*b, len);
+	while (pa < len / 2)
 	{
-		if (CURRNUMB > med)
+		if (CURRNUMB >= med)
 		{
 			add_op(op, "pa", a, b);
 			pa++;
 		}
 		else
+		{
 			add_op(op, "rb", a, b);
-		i++;
+			rb++;
+		}
 	}
-	len = len - pa;
-//	while (len--)
-//	{
-//		add_op(op, "rrb", a, b);
-//	}
+	// sort_a();
+	if (rb && rb < (pa - rb))
+		while (rb--)
+			add_op(op, "rrb", a, b);
+	else
+		while (rb++ <= pa)
+			add_op(op, "rb", a, b);
 	return (pa);
 }
 
@@ -109,56 +113,52 @@ int     divide_a(t_stack **a, t_stack **b, t_op **op, int len)
 void	sort_b(t_stack **a, t_stack **b, t_op **op, int *len)
 {
 //	int i;
+	len[1] -= len[2];
+	len[0] += len[2];
+	len[3] = 0;
 	if (len[1] <= 3)
 	{
-//		i = 0;
 		sort_short(a, b, op, len);
-//		while (i++ < len[1])
-		while (len[1]-- > 0)
-		{
-			add_op(op, "pa", a, b);
-			len[0]++;
-		}
 	}
+	if  (len[1] <= 3 || stack_a_sorted(*b))
+		return ;
+	sort_a(a, b, op, len);
 	if (len[1] > 3 && !stack_a_sorted(*b))
 	{
-		len[0] = divide_b(a, b, op, len[1]);
-		len[1] -= len[0];
-//		if (len[1] > 3 && !stack_a_sorted(*b))
-//			sort_b(a, b, op, len);
+		len[2] = divide_b(a, b, op, len[1]);
+//		len[1] -= len[0];
 	}
-
-	if (*b)
-		sort_b(a, b, op, len);
-//	sort_a(a, b, op, len);
+	sort_b(a, b, op, len);
+	while (len[2]-- > 0)
+	{
+		add_op(op, "pb", a, b);
+//		len[1]++;
+	}
+	len[2] = 0;
 }
 
 void	sort_a(t_stack **a, t_stack **b, t_op **op, int *len)
 {
-	int i;
-
-	i = 0;
+	len[1] += len[3];
+	len[0] -= len[3];
 	if (len[0] <= 3)
 	{
-//		i = 0;
 		sort_short(a, b, op, len);
-		while (len[1]-- > 0)
-		{
-			add_op(op, "pa", a, b);
-			len[0]++;
-		}
 	}
+	if (len[0] <= 3 || stack_a_sorted(*a))
+		return ;
 	if (len[0] > 3 && !stack_a_sorted(*a))
 	{
-		i = divide_a(a, b, op, len[0]);
-		len[1] = i;
-		len[0] -= i;
-//		sort_a(a, b, op, len);
+		len[3] = divide_a(a, b, op, len[0]);
 	}
-	if (len[0] > 3 && !stack_a_sorted(*a))
-		sort_a(a, b, op, len);
-	if (*b)
-		sort_b(a, b, op, len);
+	sort_a(a, b, op, len);
+	sort_b(a, b, op, len);
+	while (len[3]-- > 0)
+	{
+		add_op(op, "pa", a, b);
+//		len[0]++;
+	}
+	len[3] = 0;
 }
 
 void	quicksort(t_stack **a, t_stack **b, t_op **op, int *len)
