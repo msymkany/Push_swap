@@ -31,6 +31,7 @@ void		add_op(t_op **list, char *op, t_stack **a, t_stack **b)
 
 	ptr = *list;
 	commands(op, a, b);
+	print_stack_a_b(*a, *b); // test
 	if (ptr)
 	{
 		while (ptr->next)

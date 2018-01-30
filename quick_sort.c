@@ -43,7 +43,7 @@ void	sort_short(t_stack **a, t_stack **b, t_op **op, int *len)
 		add_op(op, "sb", a, b);
 }
 
-int     divide_b(t_stack **a, t_stack **b, t_op **op, int len) // old
+int     divide_b(t_stack **a, t_stack **b, t_op **op, int *len) // old
 {
 	int 	med;
 	int     pa;
@@ -51,8 +51,8 @@ int     divide_b(t_stack **a, t_stack **b, t_op **op, int len) // old
 
 	pa = 0;
 	rb = 0;
-	med = get_median(*b, len);
-	while (pa < len / 2)
+	med = get_median(*b, len[1]);
+	while (pa < len[1] / 2)
 	{
 		if (CURRNUMB >= med)
 		{
@@ -65,6 +65,7 @@ int     divide_b(t_stack **a, t_stack **b, t_op **op, int len) // old
 			rb++;
 		}
 	}
+	sort_a(a, b, op, len);
 	// sort_a();
 	if (rb && rb < (pa - rb))
 		while (rb--)
@@ -119,22 +120,23 @@ void	sort_b(t_stack **a, t_stack **b, t_op **op, int *len)
 	if (len[1] <= 3)
 	{
 		sort_short(a, b, op, len);
+		while (len[2]-- > 0)
+		{
+			add_op(op, "pb", a, b);
+		}
+		len[2] = 0;
 	}
-	if  (len[1] <= 3 || stack_a_sorted(*b))
+	if  (len[1] <= 3 || stack_b_sorted(*b))
 		return ;
 	sort_a(a, b, op, len);
-	if (len[1] > 3 && !stack_a_sorted(*b))
+	if (len[1] > 3 && !stack_b_sorted(*b))
 	{
-		len[2] = divide_b(a, b, op, len[1]);
+		len[2] = divide_b(a, b, op, len);
 //		len[1] -= len[0];
 	}
 	sort_b(a, b, op, len);
-	while (len[2]-- > 0)
-	{
-		add_op(op, "pb", a, b);
-//		len[1]++;
-	}
-	len[2] = 0;
+
+
 }
 
 void	sort_a(t_stack **a, t_stack **b, t_op **op, int *len)
@@ -144,6 +146,11 @@ void	sort_a(t_stack **a, t_stack **b, t_op **op, int *len)
 	if (len[0] <= 3)
 	{
 		sort_short(a, b, op, len);
+		while (len[3]-- > 0)
+		{
+			add_op(op, "pa", a, b);
+		}
+		len[3] = 0;
 	}
 	if (len[0] <= 3 || stack_a_sorted(*a))
 		return ;
@@ -153,16 +160,13 @@ void	sort_a(t_stack **a, t_stack **b, t_op **op, int *len)
 	}
 	sort_a(a, b, op, len);
 	sort_b(a, b, op, len);
-	while (len[3]-- > 0)
-	{
-		add_op(op, "pa", a, b);
-//		len[0]++;
-	}
-	len[3] = 0;
+
+
 }
 
 void	quicksort(t_stack **a, t_stack **b, t_op **op, int *len)
 {
+	print_stack_a_b(*a, *b); // test
 //	int i;
 //	while (!all_sorted(*a, *b))
 //	{
