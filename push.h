@@ -34,6 +34,15 @@ typedef struct		s_op
 	char			*op;
 }					t_op;
 
+typedef struct		s_all
+{
+	t_op			*op;
+	t_stack			*a;
+	t_stack			*b;
+	int 			len_a;
+	int 			len_b;
+}					t_all;
+
 
 void				ft_error(void);
 void				ft_usage(char *name);
@@ -58,12 +67,13 @@ void				del_stack(t_stack *a);
 t_op				*new_node_op(char *op);
 void				add_op(t_op **list, char *op, t_stack **a, t_stack **b);
 void				del_op(t_op *op);
+void				add_op_new(t_all *x, char *op);
 
-void				quicksort(t_stack **a, t_stack **b, t_op **op, int *len);
+void				quicksort(t_stack **a, t_stack **b, t_op **op, int len);
 int					get_median(t_stack *a, int len);
-void				sort_a(t_stack **a, t_stack **b, t_op **op, int *len);
-void				sort_b(t_stack **a, t_stack **b, t_op **op, int *len);
-
+//void				sort_a(t_stack **a, t_stack **b, t_op **op, int *len);
+//void				sort_b(t_stack **a, t_stack **b, t_op **op, int *len);
+void				sort_a(t_all *x, int *pa);
 
 //operations
 void				swap(t_stack **s);

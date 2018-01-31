@@ -115,7 +115,6 @@ t_op	*sort_it(t_stack **a, int length, int wrong)
 {
 	t_stack		*b;
 	t_op		*op;
-	int 		*ar;
 
 	b = NULL;
 	op = NULL;
@@ -130,14 +129,8 @@ t_op	*sort_it(t_stack **a, int length, int wrong)
 		sort_almost_reverse_stack(a, b, &op);
 	else
     {
+		quicksort(a, &b, &op, length);
 		print_stack_a_b(*a, b); //test
-		ar = (int *)malloc(4 * (sizeof(int)));
-		ar[0] = length; // stack a
-		ar[1] = 0; // stack b
-		ar[2] = 0; // pushed stack a
-		ar[3] = 0; // pushed stack b
-        quicksort(a, &b, &op, ar);
-		free(ar);
     }
 	return (op);
 }
