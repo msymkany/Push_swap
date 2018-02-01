@@ -39,8 +39,8 @@ typedef struct		s_all
 	t_op			*op;
 	t_stack			*a;
 	t_stack			*b;
-	int 			len_a;
-	int 			len_b;
+//	int 			len_a;
+//	int 			len_b;
 }					t_all;
 
 
@@ -73,7 +73,7 @@ void				quicksort(t_stack **a, t_stack **b, t_op **op, int len);
 int					get_median(t_stack *a, int len);
 //void				sort_a(t_stack **a, t_stack **b, t_op **op, int *len);
 //void				sort_b(t_stack **a, t_stack **b, t_op **op, int *len);
-void				sort_a(t_all *x, int pa);
+void				sort_a(t_all *x, int len_a, int len_b, int push);
 
 //operations
 void				swap(t_stack **s);
