@@ -130,7 +130,7 @@ t_op	*sort_it(t_stack **a, int length, int wrong)
 	else
     {
 		quicksort(a, &b, &op, length);
-		print_stack_a_b(*a, b); //test
+//		print_stack_a_b(*a, b); //test
     }
 	return (op);
 }

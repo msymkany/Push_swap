@@ -59,7 +59,7 @@ void		add_op_new(t_all *x, char *op)
 
 	ptr = x->op;
 	commands(op, &(x->a), &(x->b));
-	print_stack_a_b(x->a, x->b); // test
+//	print_stack_a_b(x->a, x->b); // test
 	if (ptr)
 	{
 		while (ptr->next)

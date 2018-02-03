@@ -50,7 +50,7 @@ void	sort_print(int *stack, int length, int wrong, char flag)
 	op = sort_it(&list, length, wrong);
 	if (flag & 4)
 		print_stack_a_b(list, NULL);
-	if (flag & 1)
+	else if (flag & 1)
 		num = visualize(stack, length, op);
 	else
 	{

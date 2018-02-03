@@ -21,6 +21,7 @@ void	checker(t_stack *a, int wrong)
 	while (get_next_line(0, &line))
 	{
 		commands(line, &a, &b);
+
 		if (wrong == 0)
 		{
 			write(1, "KO\n", 3);

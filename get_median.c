@@ -65,7 +65,7 @@ int 	get_median(t_stack *a, int len)
 		a = a->next;
 		i++;
 	}
-	med = ((len / 2) % 2 == 0) ? (len / 2) : (len / 2 + 1);
+	med = (len % 2 == 0) ? (len / 2) : (len / 2);
 	return (quickmedian(arr, 0, len - 1, med));
 }
 

@@ -20,29 +20,32 @@
 #define ALEN x->len_a
 #define BLEN x->len_b
 
-void	sort_short(t_all *x, int len_a, int len_b)
+void	sort_short_b(t_all *x, int len_b)
+{
+	if (x->b && CURRNUMB < NEXTNUMB)
+		add_op_new(x, "sb");
+	if (len_b == 3)
+		add_op_new(x, "rb");
+	if (x->b && CURRNUMB < NEXTNUMB)
+		add_op_new(x, "sb");
+	if (len_b == 3) //here
+		add_op_new(x, "rrb");
+	if (x->b && CURRNUMB < NEXTNUMB)
+		add_op_new(x, "sb");
+}
+
+void	sort_short_a(t_all *x, int len_a)
 {
 	if (CURRNUM > NEXTNUM)
 		add_op_new(x, "sa");
-	if (x->b && CURRNUMB < NEXTNUMB)
-		add_op_new(x, "sb");
 	if (len_a == 3)
 		add_op_new(x, "ra");
-	if (len_b == 3)
-		add_op_new(x, "rrb");
 	if (CURRNUM > NEXTNUM)
 		add_op_new(x, "sa");
-	if (x->b && CURRNUMB < NEXTNUMB)
-		add_op_new(x, "sb");
 	if (len_a == 3)
 		add_op_new(x, "rra");
-	if (len_b == 3) //here
-		add_op_new(x, "rrb");
 	if (CURRNUM > NEXTNUM)
 		add_op_new(x, "sa");
-	if (x->b && CURRNUMB < NEXTNUMB)
-		add_op_new(x, "sb");
-
 }
 
 int     divide_b(t_all *x, int len)
@@ -50,11 +53,13 @@ int     divide_b(t_all *x, int len)
 	int 	med;
 	int     pa;
 	int		rb;
+	int 	i;
 
 	pa = 0;
 	rb = 0;
+	i = len / 2 + len % 2;
 	med = get_median(x->b, len);
-	while (pa < len / 2)
+	while (pa < i)
 	{
 		if (CURRNUMB >= med)
 		{
@@ -67,14 +72,8 @@ int     divide_b(t_all *x, int len)
 			rb++;
 		}
 	}
-	//reflect, what was pushed
-//	sort_a(x, 0);
-	if (rb && rb < (pa - rb))
-		while (rb--)
-			add_op_new(x, "rrb");
-	else
-		while (rb++ <= pa)
-			add_op_new(x, "rb");
+	while (rb--)
+		add_op_new(x, "rrb");
 	return (pa);
 }
 
@@ -100,59 +99,47 @@ int     divide_a(t_all *x, int len)
 			ra++;
 		}
 	}
-	if (ra && ra < (pb - ra))
-		while (ra--)
-			add_op_new(x, "rra");
-	else
-		while (ra++ <= pb)
-			add_op_new(x, "ra");
+	while (ra--)
+		add_op_new(x, "rra");
 	return (pb);
 }
 
-void	sort_b(t_all *x, int len_a, int len_b, int push)
+void	sort_b(t_all *x, int len_b, int push)
 {
-	if (len_b <= 3)
+	if (x->b && stack_b_sorted(x->b))
 	{
-		sort_short(x, len_a, len_b);
-		while (push-- > 0)
-		{
-			add_op_new(x, "pb");
-		}
-	}
-	if (len_b <= 3 || stack_b_sorted(x->b))
+		while (len_b-- > 0)
+			add_op_new(x, "pa");
 		return ;
-	sort_a(x, len_a + push, len_b - push, push);
-	if (len_b > 3 && !stack_b_sorted(x->b))
+	}
+	else if (len_b <= 3)
+	{
+		sort_short_b(x, len_b);
+		while (len_b-- > 0)
+			add_op_new(x, "pa");
+	}
+	else if (len_b > 3 && !stack_b_sorted(x->b))
 	{
 		push = divide_b(x, len_b);
+		sort_a(x, push, 0);
+		sort_b(x, len_b - push, push);
 	}
-	sort_b(x, len_a + push, len_b - push, push);
 }
 
-void	sort_a(t_all *x, int len_a, int len_b, int push)
+void	sort_a(t_all *x, int len_a, int push)
 {
 //	add_op(&(x->op), "sa", &(x->a), &(x->b)); // test
 //	add_op_new(x, "rrr"); // test
-	if (len_a <= 3)
-	{
-		sort_short(x, len_a, len_b);
-		while (push-- > 0)
-			add_op_new(x, "pa");
-	}
-	if (len_a <= 3 || stack_a_sorted(x->a))
+	if (stack_a_sorted(x->a))
 		return ;
-	if (len_a > 3 && !stack_a_sorted(x->a))
+	if (len_a <= 3)
+		sort_short_a(x, len_a);
+	else if (len_a > 3 && !stack_a_sorted(x->a))
 	{
 		push = divide_a(x, len_a);
+		sort_a(x, len_a - push, push);
+		sort_b(x, push, 0);
 	}
-	sort_a(x, len_a - push, len_b + push, push);
-	if (len_a - push <= 3)
-		sort_b(x, len_a, len_b, 0);
-	else
-		sort_b(x, len_a - push, len_b + push, 0);
-	if (len_b == 0)
-		while (push-- > 0)
-			add_op_new(x, "pa");
 }
 
 void	quicksort(t_stack **a, t_stack **b, t_op **op, int len)
@@ -168,7 +155,7 @@ void	quicksort(t_stack **a, t_stack **b, t_op **op, int len)
 //	all->len_b = 0;
 //	add_op(&(all->op), "sa", &(all->a), &(all->b)); // test
 //	add_op_new(all, "rrr"); // test
-	sort_a(all, len, 0, 0);
+	sort_a(all, len, 0);
 	*a = all->a;
 	*b = all->b;
 	*op = all->op;
