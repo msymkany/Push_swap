@@ -31,7 +31,6 @@ NAME_2 = push_swap
 SRC_2 = push_swap.c\
 		read_stack.c\
 		sort_it.c\
-		timsort.c\
 		stack_sorted.c\
 		ft_error.c\
 		ft_usage.c\

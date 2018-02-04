@@ -72,8 +72,9 @@ int     divide_b(t_all *x, int len)
 			rb++;
 		}
 	}
-	while (rb--)
-		add_op_new(x, "rrb");
+	if (len != x->len_b)
+		while (rb--)
+			add_op_new(x, "rrb");
 	return (pa);
 }
 
@@ -99,8 +100,9 @@ int     divide_a(t_all *x, int len)
 			ra++;
 		}
 	}
-	while (ra--)
-		add_op_new(x, "rra");
+	if (len != x->len_a)
+		while (ra--)
+			add_op_new(x, "rra");
 	return (pb);
 }
 
@@ -108,6 +110,8 @@ void	sort_b(t_all *x, int len_b, int push)
 {
 	if (x->b && stack_b_sorted(x->b))
 	{
+		x->len_a += len_b;
+		x->len_b -= len_b;
 		while (len_b-- > 0)
 			add_op_new(x, "pa");
 		return ;
@@ -115,12 +119,16 @@ void	sort_b(t_all *x, int len_b, int push)
 	else if (len_b <= 3)
 	{
 		sort_short_b(x, len_b);
+		x->len_a += len_b;
+		x->len_b -= len_b;
 		while (len_b-- > 0)
 			add_op_new(x, "pa");
 	}
 	else if (len_b > 3 && !stack_b_sorted(x->b))
 	{
 		push = divide_b(x, len_b);
+		x->len_a += push;
+		x->len_b -= push;
 		sort_a(x, push, 0);
 		sort_b(x, len_b - push, push);
 	}
@@ -137,6 +145,8 @@ void	sort_a(t_all *x, int len_a, int push)
 	else if (len_a > 3 && !stack_a_sorted(x->a))
 	{
 		push = divide_a(x, len_a);
+		x->len_a -= push;
+		x->len_b += push;
 		sort_a(x, len_a - push, push);
 		sort_b(x, push, 0);
 	}
@@ -151,8 +161,8 @@ void	quicksort(t_stack **a, t_stack **b, t_op **op, int len)
 	all->a = *a;
 	all->b = *b;
 	all->op = *op;
-//	all->len_a = len;
-//	all->len_b = 0;
+	all->len_a = len;
+	all->len_b = 0;
 //	add_op(&(all->op), "sa", &(all->a), &(all->b)); // test
 //	add_op_new(all, "rrr"); // test
 	sort_a(all, len, 0);

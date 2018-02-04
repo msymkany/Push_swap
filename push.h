@@ -39,8 +39,8 @@ typedef struct		s_all
 	t_op			*op;
 	t_stack			*a;
 	t_stack			*b;
-//	int 			len_a;
-//	int 			len_b;
+	int 			len_a;
+	int 			len_b;
 }					t_all;
 
 
@@ -54,7 +54,7 @@ int					stack_b_sorted(t_stack *b);
 
 t_op				*sort_it(t_stack **a, int length, int wrong);
 void				sort_three_max(t_stack **a, int len_a, t_op **op);
-void				timsort(t_stack *a, int wrong, t_op **op);
+//void				timsort(t_stack *a, int wrong, t_op **op);
 void				merge_stacks(t_stack **a, t_stack **b, t_op **op);
 int					count_misplaced(t_stack *a);
 int					get_last_num(t_stack *st);
@@ -71,11 +71,8 @@ void				add_op_new(t_all *x, char *op);
 
 void				quicksort(t_stack **a, t_stack **b, t_op **op, int len);
 int					get_median(t_stack *a, int len);
-//void				sort_a(t_stack **a, t_stack **b, t_op **op, int *len);
-//void				sort_b(t_stack **a, t_stack **b, t_op **op, int *len);
 void				sort_a(t_all *x, int len_a, int push);
 
-//operations
 void				swap(t_stack **s);
 void				sa(t_stack **a);
 void				sb(t_stack **b);
