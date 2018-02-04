@@ -48,17 +48,12 @@ void				ft_error(void);
 void				ft_usage(char *name);
 
 int					*read_stack(int ar, char **av, int *j, int count_flag);
-int					all_sorted(t_stack *a, t_stack *b);
 int					stack_a_sorted(t_stack *a);
 int					stack_b_sorted(t_stack *b);
+int					all_sorted(t_stack *a, t_stack *b);
 
 t_op				*sort_it(t_stack **a, int length, int wrong);
 void				sort_three_max(t_stack **a, int len_a, t_op **op);
-//void				timsort(t_stack *a, int wrong, t_op **op);
-void				merge_stacks(t_stack **a, t_stack **b, t_op **op);
-int					count_misplaced(t_stack *a);
-int					get_last_num(t_stack *st);
-
 
 t_stack				*push_to_list(int *arr, int n);
 t_stack				*new_node(void);
@@ -68,10 +63,16 @@ t_op				*new_node_op(char *op);
 void				add_op(t_op **list, char *op, t_stack **a, t_stack **b);
 void				del_op(t_op *op);
 void				add_op_new(t_all *x, char *op);
+void				optimize_op(t_op *op);
 
-void				quicksort(t_stack **a, t_stack **b, t_op **op, int len);
 int					get_median(t_stack *a, int len);
 void				sort_a(t_all *x, int len_a, int push);
+int     			divide_a(t_all *x, int len);
+int     			divide_b(t_all *x, int len);
+void				sort_short_a(t_all *x, int len_a);
+void				sort_short_b(t_all *x, int len_b);
+void				sort_three_b(t_all *x, int len_b);
+
 
 void				swap(t_stack **s);
 void				sa(t_stack **a);

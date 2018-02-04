@@ -66,14 +66,10 @@ long int	atoi_push(const char *str)
 int			*read_stack(int ar, char **av, int *wrong, int j)
 {
 	size_t		i;
-//	size_t		j;
 	long int	num;
 	int			*stack;
 
 	i = 0;
-//	j = 1;
-//	if (ft_strequ(av[j], "-v"))
-//		j++;
 	stack = (int *)malloc(sizeof(int) * ar);
 	while (j < ar)
 	{
@@ -96,13 +92,13 @@ int 	get_flags(int ar, char **av, char *flag)
 	i = 1;
 	while (i < ar && av[i][0] == '-')
 	{
-		if (ft_strequ(av[i], "-v")) //visualization
+		if (ft_strequ(av[i], "-v"))
 			(*flag) = (*flag) | 1;
-		else if (ft_strequ(av[i], "-f")) // first
+		else if (ft_strequ(av[i], "-f"))
 			(*flag) = (*flag) | 2;
-		else if (ft_strequ(av[i], "-l")) // last
+		else if (ft_strequ(av[i], "-l"))
 			(*flag) = (*flag) | 4;
-		else if (ft_strequ(av[i], "-c")) // count op
+		else if (ft_strequ(av[i], "-c"))
 			(*flag) = (*flag) | 8;
 		else if (ft_isdigit(av[i][1]))
 			break ;

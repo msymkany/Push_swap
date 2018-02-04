@@ -57,7 +57,8 @@ void	sort_print(int *stack, int length, int wrong, char flag)
 		ptr = op;
 		while (ptr)
 		{
-			ft_printf("%s\n", ptr->op);
+			if (ptr->op)
+				ft_printf("%s\n", ptr->op);
 			ptr = ptr->next;
 			num++;
 		}
@@ -92,9 +93,7 @@ int		main(int ar, char **av)
 			exit(0);
 		}
 		else
-		{
 			sort_print(stack, ar - count_flag, wrong,flag);
-		}
 	}
 	free(stack);
 //	while (1);

@@ -25,6 +25,7 @@ t_op		*new_node_op(char *op)
 	return (new);
 }
 
+
 void		add_op(t_op **list, char *op, t_stack **a, t_stack **b)
 {
 	t_op *ptr;
@@ -35,20 +36,8 @@ void		add_op(t_op **list, char *op, t_stack **a, t_stack **b)
 	if (ptr)
 	{
 		while (ptr->next)
-		{
 			ptr = ptr->next;
-		}
-//		if ((ft_strequ(op, "sa") && ft_strequ(ptr->op, "sb")) ||
-//			(ft_strequ(op, "sb") && ft_strequ(ptr->op, "sa")))
-//			ft_strcpy(ptr->op, "ss");
-//		else if ((ft_strequ(op, "ra") && ft_strequ(ptr->op, "rb")) ||
-//				 (ft_strequ(op, "rb") && ft_strequ(ptr->op, "ra")))
-//			ft_strcpy(ptr->op, "rr");
-//		else if ((ft_strequ(op, "rra") && ft_strequ(ptr->op, "rrb")) ||
-//				 (ft_strequ(op, "rrb") && ft_strequ(ptr->op, "rra")))
-//			ft_strcpy(ptr->op, "rrr");
-//		else
-			ptr->next = new_node_op(op);
+		ptr->next = new_node_op(op);
 	}
 	else
 		*list = new_node_op(op);
@@ -63,20 +52,8 @@ void		add_op_new(t_all *x, char *op)
 	if (ptr)
 	{
 		while (ptr->next)
-		{
 			ptr = ptr->next;
-		}
-//		if ((ft_strequ(op, "sa") && ft_strequ(ptr->op, "sb")) ||
-//			(ft_strequ(op, "sb") && ft_strequ(ptr->op, "sa")))
-//			ft_strcpy(ptr->op, "ss");
-//		else if ((ft_strequ(op, "ra") && ft_strequ(ptr->op, "rb")) ||
-//				 (ft_strequ(op, "rb") && ft_strequ(ptr->op, "ra")))
-//			ft_strcpy(ptr->op, "rr");
-//		else if ((ft_strequ(op, "rra") && ft_strequ(ptr->op, "rrb")) ||
-//				 (ft_strequ(op, "rrb") && ft_strequ(ptr->op, "rra")))
-//			ft_strcpy(ptr->op, "rrr");
-//		else
-			ptr->next = new_node_op(op);
+		ptr->next = new_node_op(op);
 	}
 	else
 		x->op = new_node_op(op);
@@ -95,5 +72,40 @@ void		del_op(t_op *op)
 		free(op);
 		op = NULL;
 		op = ptr;
+	}
+}
+
+void		check_pairs(t_op *ptr)
+{
+	if ((ft_strequ(ptr->op, "sa") && ft_strequ(ptr->next->op, "sb")) ||
+		(ft_strequ(ptr->op, "sb") && ft_strequ(ptr->next->op, "sa")))
+	{
+		ft_strcpy(ptr->op, "ss");
+		ft_strdel(&ptr->next->op);
+	}
+	else if ((ft_strequ(ptr->op, "ra") && ft_strequ(ptr->next->op, "rb")) ||
+			 (ft_strequ(ptr->op, "rb") && ft_strequ(ptr->next->op, "ra")))
+	{
+		ft_strcpy(ptr->op, "rr");
+		ft_strdel(&ptr->next->op);
+	}
+	else if ((ft_strequ(ptr->op, "rra") && ft_strequ(ptr->next->op, "rrb")) ||
+			 (ft_strequ(ptr->op, "rrb") && ft_strequ(ptr->next->op, "rra")))
+	{
+		ft_strcpy(ptr->op, "rrr");
+		ft_strdel(&ptr->next->op);
+	}
+}
+
+void		optimize_op(t_op *op)
+{
+	t_op	*ptr;
+
+	ptr = op;
+	while (ptr->next)
+	{
+		if (ptr->op)
+			check_pairs(ptr);
+		ptr = ptr->next;
 	}
 }

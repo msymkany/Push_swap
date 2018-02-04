@@ -65,29 +65,6 @@ int 	get_median(t_stack *a, int len)
 		a = a->next;
 		i++;
 	}
-	med = (len % 2 == 0) ? (len / 2) : (len / 2);
+	med = len / 2;
 	return (quickmedian(arr, 0, len - 1, med));
 }
-
-//int 	get_mean(t_stack **a, int len)
-//{
-//	int		min;
-//	int 	max;
-//	int     i;
-//	t_stack *ptr;
-//
-//	i = 1;
-//	min = CURRNUM;
-//	max = CURRNUM;
-//	ptr = (*a)->next;
-//	while (i < len)
-//	{
-//		if (ptr->num < min)
-//			min = ptr->num;
-//		if (ptr->num > max)
-//			max = ptr->num;
-//		ptr = ptr->next;
-//		i++;
-//	}
-//	return ((max + min) / 2);
-//}

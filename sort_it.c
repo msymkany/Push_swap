@@ -16,42 +16,54 @@
 #define THIRDNUM (*a)->next->next->num
 #define THIRD (*a)->next->next
 
-//int		get_min(t_stack *a)
-//{
-//	int		min;
-//
-//	min = a->num;
-//	while (a->next)
-//	{
-//		a = a->next;
-//		if (a->num < min)
-//			min = a->num;
-//	}
-//	return (min);
-//}
-//
-//void	bubble_sort(t_stack *a, char debug)
-//{
-//	int			min;
-//	t_stack		*b;
-//
-//	b = NULL;
-//	min = get_min(a);
-//	while (count_misplaced(a))
-//	{
-//		if (a->next->num != min && a->num > a->next->num)
-//			add_op(op, "sa");
-//		else
-//			add_op(op, "ra");
-//	}
-//}
+void	sort_b(t_all *x, int len_b, int push)
+{
+	if (x->b && stack_b_sorted(x->b))
+	{
+		x->len_a += len_b;
+		x->len_b -= len_b;
+		while (len_b-- > 0)
+			add_op_new(x, "pa");
+		return ;
+	}
+	else if (len_b <= 3)
+	{
+		(x->len_b <= 3) ? sort_three_b(x, len_b) : sort_short_b(x, len_b);
+		x->len_a += len_b;
+		x->len_b -= len_b;
+		while (len_b-- > 0)
+			add_op_new(x, "pa");
+	}
+	else if (len_b > 3 && !stack_b_sorted(x->b))
+	{
+		push = divide_b(x, len_b);
+		x->len_a += push;
+		x->len_b -= push;
+		sort_a(x, push, 0);
+		sort_b(x, len_b - push, push);
+	}
+}
 
-//int		get_pre_last(t_stack *a)
-//{
-//	while (a->next->next)
-//		a = a->next;
-//	return (CURRNUM);
-//}
+void	sort_a(t_all *x, int len_a, int push)
+{
+	if (stack_a_sorted(x->a))
+		return ;
+	if (len_a <= 3)
+	{
+		if (len_a == x->len_a)
+			sort_three_max(&x->a, len_a, &x->op);
+		else
+			sort_short_a(x, len_a);
+	}
+	else if (len_a > 3 && !stack_a_sorted(x->a))
+	{
+		push = divide_a(x, len_a);
+		x->len_a -= push;
+		x->len_b += push;
+		sort_a(x, len_a - push, push);
+		sort_b(x, push, 0);
+	}
+}
 
 void	sort_three_max(t_stack **a, int len_a, t_op **op)
 {
@@ -72,30 +84,6 @@ void	sort_three_max(t_stack **a, int len_a, t_op **op)
 	}
 }
 
-//void	sort_almost_reverse_stack(t_stack **a, t_stack *b, t_op **op)
-//{
-//	while (THIRD)
-//	{
-//		if (CURRNUM < NEXTNUM || !b)
-//            add_op(op, "pb", a, &b);
-//		else
-//		{
-//			add_op(op, "pb", a, &b);
-//			add_op(op, "rb", a, &b);
-//		}
-//	}
-//	if (CURRNUM > NEXTNUM)
-//		add_op(op, "sa", a, NULL);
-//	while (b->next && b->num > b->next->num)
-//		add_op(op, "pa", a, &b);
-//	while (b)
-//		merge_stacks(a, &b, op);
-//	while (get_last_num(*a) < CURRNUM)
-//	{
-//        add_op(op, "rra", a, NULL);
-//	}
-//}
-
 void	sort_reverse_stack(t_stack **a, t_stack *b, t_op **op)
 {
 	add_op(op, "pb", a, &b);
@@ -115,21 +103,25 @@ t_op	*sort_it(t_stack **a, int length, int wrong)
 {
 	t_stack		*b;
 	t_op		*op;
+	t_all		*all;
 
 	b = NULL;
 	op = NULL;
-//	print_stack_a_b(*a, b); // test
-//	wrong = count_misplaced(*a); // already done
 	if (length <= 3)
 		sort_three_max(a, length, &op);
 	else if (length > 3 && (wrong == length - 1))
 		sort_reverse_stack(a, b, &op);
-//	else if (wrong >= length - 1 - length / 10)
-//		sort_almost_reverse_stack(a, b, &op);
 	else
     {
-		quicksort(a, &b, &op, length);
-//		print_stack_a_b(*a, b); //test
-    }
+		all = (t_all *)malloc(sizeof(t_all));
+		all->a = *a;
+		all->b = b;
+		all->op = op;
+		all->len_a = length;
+		all->len_b = 0;
+		sort_a(all, length, 0);
+		op = all->op;
+		optimize_op(op);
+	}
 	return (op);
 }
