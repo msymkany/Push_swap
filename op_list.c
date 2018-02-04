@@ -75,6 +75,29 @@ void		del_op(t_op *op)
 	}
 }
 
+void		check_pairs_2(t_op *p)
+{
+	if ((ft_strequ(p->op, "ra") && ft_strequ(p->next->op, "rra")) ||
+		(ft_strequ(p->op, "rra") && ft_strequ(p->next->op, "ra")))
+	{
+		ft_strdel(&p->op);
+		ft_strdel(&p->next->op);
+	}
+	else if ((ft_strequ(p->op, "rb") && ft_strequ(p->next->op, "rrb")) ||
+			 (ft_strequ(p->op, "rrb") && ft_strequ(p->next->op, "rb")))
+	{
+		ft_strdel(&p->op);
+		ft_strdel(&p->next->op);
+	}
+	else if (ft_strequ(p->op, "rr"))
+		if (ft_strequ(p->next->op, "rrr") ||
+			ft_strequ(p->next->next->op, "rrr"))
+		{
+			ft_strdel(&p->op);
+			ft_strdel(&p->next->op);
+		}
+}
+
 void		check_pairs(t_op *ptr)
 {
 	if ((ft_strequ(ptr->op, "sa") && ft_strequ(ptr->next->op, "sb")) ||
@@ -99,13 +122,16 @@ void		check_pairs(t_op *ptr)
 
 void		optimize_op(t_op *op)
 {
-	t_op	*ptr;
+	t_op	*p;
 
-	ptr = op;
-	while (ptr->next)
+	p = op;
+	while (p->next)
 	{
-		if (ptr->op)
-			check_pairs(ptr);
-		ptr = ptr->next;
+		if (p->op)
+		{
+			check_pairs(p);
+			check_pairs_2(p);
+		}
+		p = p->next;
 	}
 }

@@ -13,13 +13,10 @@
 #include "push.h"
 #define CURRNUM x->a->num
 #define NEXTNUM x->a->next->num
-//#define THIRDNUM x->a->next->next->num
-//#define THIRD x->a->next->next
 #define CURRNUMB x->b->num
 #define NEXTNUMB x->b->next->num
 #define THIRDB x->b->next->next
 #define THIRDNUMB x->b->next->next->num
-
 
 void	sort_short_b(t_all *x, int len_b)
 {
