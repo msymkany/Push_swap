@@ -57,8 +57,7 @@ void	sort_print(int *stack, int length, int wrong, char flag)
 		ptr = op;
 		while (ptr)
 		{
-			if (ptr->op)
-				ft_printf("%s\n", ptr->op);
+			ft_printf("%s\n", ptr->op);
 			ptr = ptr->next;
 			num++;
 		}

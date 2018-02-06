@@ -43,6 +43,7 @@ SRC_2 = push_swap.c\
 		debug_option.c\
 		quick_sort.c\
 		get_median.c\
+		optimization.c\
 
 OBJ_2 = $(SRC_2:.c=.o)
 
