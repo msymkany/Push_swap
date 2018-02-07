@@ -26,13 +26,13 @@ void	sort_b(t_all *x, int len_b, int push)
 			add_op_new(x, "pa");
 		return ;
 	}
-	else if (len_b <= 3)
+	else if (x->b && len_b <= 3)
 	{
 		(x->len_b <= 3) ? sort_three_b(x, len_b) : sort_short_b(x, len_b);
 		x->len_a += len_b;
 		x->len_b -= len_b;
-		while (len_b-- > 0)
-			add_op_new(x, "pa");
+//		while (len_b-- > 0)
+//			add_op_new(x, "pa");
 	}
 	else if (len_b > 3 && !stack_b_sorted(x->b))
 	{
@@ -121,7 +121,12 @@ t_op	*sort_it(t_stack **a, int length, int wrong)
 		all->len_b = 0;
 		sort_a(all, length, 0);
 		op = all->op;
+		*a = all->a;
 		optimize_op(op);
 	}
 	return (op);
 }
+
+//len_b = ((get_last_num(x->b) < CURRNUM) ? len_b - 2 : len_b - 1);
+//if (len_b == 1)
+//add_op_new(x, "pa");

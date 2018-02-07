@@ -18,18 +18,61 @@
 #define THIRDB x->b->next->next
 #define THIRDNUMB x->b->next->next->num
 
+void	sort_three_b(t_all *x, int len_b)
+{
+	int 	j;
+
+	j = len_b;
+	while (len_b > 1)
+	{
+		if (CURRNUMB < NEXTNUMB)
+		{
+			if (THIRDB && CURRNUMB < THIRDNUMB)
+				add_op_new(x, "rb");
+			else
+				add_op_new(x, "sb");
+		}
+		else if (THIRDB && THIRDNUMB > NEXTNUMB)
+		{
+			add_op_new(x, "rrb");
+		}
+		len_b--;
+	}
+	while (j-- > 0)
+		add_op_new(x, "pa");
+}
+
 void	sort_short_b(t_all *x, int len_b)
 {
-	if (x->b && CURRNUMB < NEXTNUMB)
-		add_op_new(x, "sb");
+	if (len_b == 3 && CURRNUMB > NEXTNUMB && CURRNUMB > THIRDNUMB)
+	{
+		add_op_new(x, "pa");
+		len_b--;
+	}
+	if (CURRNUMB < NEXTNUMB)
+		if (len_b == 2 || (len_b == 3 && NEXTNUMB > THIRDNUMB))
+		{
+			add_op_new(x, "sb");
+			add_op_new(x, "pa");
+			len_b--;
+			if (len_b == 2 && CURRNUMB < NEXTNUMB)
+				add_op_new(x, "sb");
+		}
 	if (len_b == 3)
+	{
 		add_op_new(x, "rb");
-	if (x->b && CURRNUMB < NEXTNUMB)
 		add_op_new(x, "sb");
-	if (len_b == 3)
+		add_op_new(x, "pa");
+		len_b--;
+		if (get_last_num(x->b) < CURRNUMB)
+		{
+			add_op_new(x, "pa");
+			len_b--;
+		}
 		add_op_new(x, "rrb");
-	if (x->b && CURRNUMB < NEXTNUMB)
-		add_op_new(x, "sb");
+	}
+	while (len_b-- > 0)
+		add_op_new(x, "pa");
 }
 
 void	sort_short_a(t_all *x, int len_a)
@@ -102,23 +145,4 @@ int     divide_a(t_all *x, int len)
 		while (ra--)
 			add_op_new(x, "rra");
 	return (pb);
-}
-
-void	sort_three_b(t_all *x, int len_b)
-{
-	while (len_b > 1)
-	{
-		if (CURRNUMB < NEXTNUMB)
-		{
-			if (THIRDB && CURRNUMB < THIRDNUMB)
-				add_op_new(x, "rb");
-			else
-				add_op_new(x, "sb");
-		}
-		else if (THIRDB && THIRDNUMB > NEXTNUMB)
-		{
-			add_op_new(x, "rrb");
-		}
-		len_b--;
-	}
 }

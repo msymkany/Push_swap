@@ -74,3 +74,10 @@ void		del_op(t_op *op)
 		op = ptr;
 	}
 }
+
+int		get_last_num(t_stack *st)
+{
+	while (st->next)
+		st = st->next;
+	return (st->num);
+}

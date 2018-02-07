@@ -42,26 +42,23 @@ void	sort_print(int *stack, int length, int wrong, char flag)
 	t_op		*ptr;
 	int 		num;
 
-	ptr = NULL;
 	num = 0;
 	list = push_to_list(stack, length);
-	if (flag & 2)
-		print_stack_a_b(list, NULL);
+	(flag & 2) ? print_stack_a_b(list, NULL) : 0;
 	op = sort_it(&list, length, wrong);
-	if (flag & 4)
-		print_stack_a_b(list, NULL);
-	else if (flag & 1)
+	ptr = op;
+	if (flag & 1)
 		num = visualize(stack, length, op);
 	else
-	{
-		ptr = op;
 		while (ptr)
 		{
-			ft_printf("%s\n", ptr->op);
+			if ((flag & 7) == 0)
+				ft_printf("%s\n", ptr->op);
 			ptr = ptr->next;
 			num++;
 		}
-	}
+	if (flag & 4)
+		print_stack_a_b(list, NULL);
 	if (flag & 8)
 		ft_printf("Number of operations: %d\n", num);
 	del_stack(list);
@@ -95,6 +92,6 @@ int		main(int ar, char **av)
 			sort_print(stack, ar - count_flag, wrong,flag);
 	}
 	free(stack);
-//	while (1);
+	while (1);
 	return (0);
 }

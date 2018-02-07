@@ -64,6 +64,7 @@ void				add_op(t_op **list, char *op, t_stack **a, t_stack **b);
 void				del_op(t_op *op);
 void				add_op_new(t_all *x, char *op);
 void				optimize_op(t_op *op);
+int					get_last_num(t_stack *st);
 
 int					get_median(t_stack *a, int len);
 void				sort_a(t_all *x, int len_a, int push);
