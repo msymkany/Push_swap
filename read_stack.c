@@ -35,8 +35,7 @@ int			dub_check(int *arr, int num, size_t i)
 	{
 		if (*arr == num)
 			ft_error();
-		if (*arr++ > num && j == 0)
-			j = 1;
+		arr++;
 	}
 	return (j);
 }
@@ -78,10 +77,10 @@ int			*read_stack(int ar, char **av, int *wrong, int j)
 		if (num > 2147483647 || num < -2147483648)
 			ft_error();
 		if (i)
-			if (dub_check(stack, (int)num, i))
-				(*wrong)++;
+			dub_check(stack, (int)num, i);
 		stack[i++] = (int)num;
 	}
+	(*wrong) = count_wrong(stack, i - 1);
 	return (stack);
 }
 

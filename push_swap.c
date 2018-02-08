@@ -83,14 +83,10 @@ int		main(int ar, char **av)
 		count_flag = get_flags(ar, av, &flag);
 		stack = (read_stack(ar, av, &wrong, count_flag));
 		if (wrong == 0)
-		{
-//			while(1); //test
 			exit(0);
-		}
 		else
 			sort_print(stack, ar - count_flag, wrong,flag);
 	}
 	free(stack);
-	// while (1);
 	return (0);
 }

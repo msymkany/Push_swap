@@ -107,7 +107,7 @@ t_op	*sort_it(t_stack **a, int length, int wrong)
 	op = NULL;
 	if (length <= 3)
 		sort_three_max(a, length, &op);
-	else if (length > 3 && (wrong == length - 1))
+	else if (length > 5 && (wrong == length - 1))
 		sort_reverse_stack(a, b, &op);
 	else
     {
@@ -121,7 +121,7 @@ t_op	*sort_it(t_stack **a, int length, int wrong)
 		op = all->op;
 		*a = all->a;
 		optimize_op(op);
-		// free(all);
+		 free(all);
 	}
 	return (op);
 }

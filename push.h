@@ -47,6 +47,7 @@ typedef struct		s_all
 void				ft_error(void);
 void				ft_usage(char *name);
 
+int 				count_wrong(int *stack, int len);
 int					*read_stack(int ar, char **av, int *j, int count_flag);
 int					stack_a_sorted(t_stack *a);
 int					stack_b_sorted(t_stack *b);

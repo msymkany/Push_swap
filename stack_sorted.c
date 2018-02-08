@@ -12,6 +12,22 @@
 
 #include "push.h"
 
+int 		count_wrong(int *stack, int len)
+{
+	int		j;
+	int		w;
+
+	j = 0;
+	w = 0;
+	while (j < len)
+	{
+		if (stack[j] > stack[j + 1])
+			w++;
+		j++;
+	}
+	return (w);
+}
+
 int		all_sorted(t_stack *a, t_stack *b)
 {
 	if (b || !stack_a_sorted(a))

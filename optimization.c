@@ -85,7 +85,7 @@ void		optimize_op(t_op *op)
 		{
 			check_pairs(p);
 			if (p->next->next)
-			check_pairs_2(p);
+				check_pairs_2(p);
 		}
 		p = p->next;
 	}
