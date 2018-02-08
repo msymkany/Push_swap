@@ -57,8 +57,7 @@ void	sort_print(int *stack, int length, int wrong, char flag)
 			ptr = ptr->next;
 			num++;
 		}
-	if (flag & 4)
-		print_stack_a_b(list, NULL);
+	(flag & 4) ? print_stack_a_b(list, NULL) : 0;
 	if (flag & 8)
 		ft_printf("Number of operations: %d\n", num);
 	del_stack(list);
@@ -92,6 +91,6 @@ int		main(int ar, char **av)
 			sort_print(stack, ar - count_flag, wrong,flag);
 	}
 	free(stack);
-	while (1);
+	// while (1);
 	return (0);
 }
