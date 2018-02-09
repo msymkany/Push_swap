@@ -12,7 +12,7 @@
 
 #include "push.h"
 
-t_op		*new_node_op(char *op)
+t_op	*new_node_op(char *op)
 {
 	t_op		*new;
 
@@ -25,14 +25,12 @@ t_op		*new_node_op(char *op)
 	return (new);
 }
 
-
-void		add_op(t_op **list, char *op, t_stack **a, t_stack **b)
+void	add_op(t_op **list, char *op, t_stack **a, t_stack **b)
 {
 	t_op *ptr;
 
 	ptr = *list;
 	commands(op, a, b);
-//	print_stack_a_b(*a, *b); // test
 	if (ptr)
 	{
 		while (ptr->next)
@@ -42,13 +40,13 @@ void		add_op(t_op **list, char *op, t_stack **a, t_stack **b)
 	else
 		*list = new_node_op(op);
 }
-void		add_op_new(t_all *x, char *op)
+
+void	add_op_new(t_all *x, char *op)
 {
 	t_op *ptr;
 
 	ptr = x->op;
 	commands(op, &(x->a), &(x->b));
-//	print_stack_a_b(x->a, x->b); // test
 	if (ptr)
 	{
 		while (ptr->next)
@@ -59,7 +57,7 @@ void		add_op_new(t_all *x, char *op)
 		x->op = new_node_op(op);
 }
 
-void		del_op(t_op *op)
+void	del_op(t_op *op)
 {
 	t_op	*ptr;
 

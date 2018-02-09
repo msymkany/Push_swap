@@ -12,15 +12,10 @@
 
 #ifndef PUSH_H
 # define PUSH_H
-
 # include <unistd.h>
 # include <stdlib.h>
 # include "libft/libft.h"
 # include "libft/libftprintf.h"
-
-//100 - 700
-//500 - 5300
-//5 - 12
 
 typedef struct		s_stack
 {
@@ -39,15 +34,14 @@ typedef struct		s_all
 	t_op			*op;
 	t_stack			*a;
 	t_stack			*b;
-	int 			len_a;
-	int 			len_b;
+	int				len_a;
+	int				len_b;
 }					t_all;
-
 
 void				ft_error(void);
 void				ft_usage(char *name);
 
-int 				count_wrong(int *stack, int len);
+int					count_wrong(int *stack, int len);
 int					*read_stack(int ar, char **av, int *j, int count_flag);
 int					stack_a_sorted(t_stack *a);
 int					stack_b_sorted(t_stack *b);
@@ -66,13 +60,14 @@ void				del_op(t_op *op);
 void				add_op_new(t_all *x, char *op);
 void				optimize_op(t_op *op);
 int					get_last_num(t_stack *st);
-void				sort_almost_reverse_stack(t_stack **a, t_stack *b, t_op **op);
+void				sort_almost_reverse_stack(t_stack **a, t_stack *b,
+											t_op **op);
 
 void				quicksort(t_stack **a, t_op **op, int length);
 int					get_median(t_stack *a, int len);
 void				sort_a(t_all *x, int len_a, int push);
-int     			divide_a(t_all *x, int len);
-int     			divide_b(t_all *x, int len);
+int					divide_a(t_all *x, int len);
+int					divide_b(t_all *x, int len);
 void				sort_short_a(t_all *x, int len_a);
 void				sort_short_b(t_all *x, int len_b);
 void				sort_three_b(t_all *x, int len_b);
@@ -95,6 +90,6 @@ void				rrr(t_stack **a, t_stack **b);
 
 void				print_stack_a_b(t_stack *a, t_stack *b);
 void				commands(char *com, t_stack **a, t_stack **b);
-int 				get_flags(int ar, char **av, char *flag);
+int					get_flags(int ar, char **av, char *flag);
 
 #endif

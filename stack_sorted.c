@@ -12,7 +12,7 @@
 
 #include "push.h"
 
-int 		count_wrong(int *stack, int len)
+int		count_wrong(int *stack, int len)
 {
 	int		j;
 	int		w;

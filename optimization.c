@@ -39,16 +39,16 @@ void		check_pairs_2(t_op *p)
 		(ft_strequ(NOP, "rra") && ft_strequ(NNOP, "ra")))
 		del_two_next_node(p);
 	else if ((ft_strequ(NOP, "rb") && ft_strequ(NNOP, "rrb")) ||
-			 (ft_strequ(NOP, "rrb") && ft_strequ(NNOP, "rb")))
+			(ft_strequ(NOP, "rrb") && ft_strequ(NNOP, "rb")))
 		del_two_next_node(p);
 	else if ((ft_strequ(NOP, "rr") && ft_strequ(NNOP, "rrr")) ||
 			(ft_strequ(NOP, "rrr") && ft_strequ(NNOP, "rr")))
 		del_two_next_node(p);
 	else if ((ft_strequ(NOP, "pb") && ft_strequ(NNOP, "pa")) ||
-			 (ft_strequ(NOP, "pa") && ft_strequ(NNOP, "pb")))
+			(ft_strequ(NOP, "pa") && ft_strequ(NNOP, "pb")))
 		del_two_next_node(p);
 	else if ((ft_strequ(NOP, "sa") && ft_strequ(NNOP, "sa")) ||
-			 (ft_strequ(NOP, "sb") && ft_strequ(NNOP, "sb")))
+			(ft_strequ(NOP, "sb") && ft_strequ(NNOP, "sb")))
 		del_two_next_node(p);
 }
 
@@ -61,13 +61,13 @@ void		check_pairs(t_op *p)
 		del_next_node(p);
 	}
 	else if ((ft_strequ(OP, "ra") && ft_strequ(NOP, "rb")) ||
-			 (ft_strequ(OP, "rb") && ft_strequ(NOP, "ra")))
+			(ft_strequ(OP, "rb") && ft_strequ(NOP, "ra")))
 	{
 		ft_strcpy(OP, "rr");
 		del_next_node(p);
 	}
 	else if ((ft_strequ(OP, "rra") && ft_strequ(NOP, "rrb")) ||
-			 (ft_strequ(OP, "rrb") && ft_strequ(NOP, "rra")))
+			(ft_strequ(OP, "rrb") && ft_strequ(NOP, "rra")))
 	{
 		ft_strcpy(OP, "rrr");
 		del_next_node(p);

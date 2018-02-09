@@ -84,9 +84,9 @@ int			*read_stack(int ar, char **av, int *wrong, int j)
 	return (stack);
 }
 
-int 	get_flags(int ar, char **av, char *flag)
+int			get_flags(int ar, char **av, char *flag)
 {
-	int  i;
+	int		i;
 
 	i = 1;
 	while (i < ar && av[i][0] == '-')

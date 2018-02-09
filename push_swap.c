@@ -16,7 +16,7 @@ int		visualize(int *stack, int length, t_op *op)
 {
 	t_stack		*a;
 	t_stack		*b;
-	int 		num;
+	int			num;
 
 	num = 0;
 	b = NULL;
@@ -30,7 +30,7 @@ int		visualize(int *stack, int length, t_op *op)
 		op = op->next;
 		num++;
 	}
-	print_stack_a_b(a, b); //test
+	print_stack_a_b(a, b);
 	del_stack(a);
 	return (num);
 }
@@ -40,7 +40,7 @@ void	sort_print(int *stack, int length, int wrong, char flag)
 	t_stack		*list;
 	t_op		*op;
 	t_op		*ptr;
-	int 		num;
+	int			num;
 
 	num = 0;
 	list = push_to_list(stack, length);
@@ -64,13 +64,12 @@ void	sort_print(int *stack, int length, int wrong, char flag)
 	del_op(op);
 }
 
-
 int		main(int ar, char **av)
 {
 	int			*stack;
 	int			wrong;
 	char		flag;
-	int 		count_flag;
+	int			count_flag;
 
 	wrong = 0;
 	flag = 0;
@@ -85,7 +84,7 @@ int		main(int ar, char **av)
 		if (wrong == 0)
 			exit(0);
 		else
-			sort_print(stack, ar - count_flag, wrong,flag);
+			sort_print(stack, ar - count_flag, wrong, flag);
 	}
 	free(stack);
 	return (0);
