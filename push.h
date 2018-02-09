@@ -66,7 +66,9 @@ void				del_op(t_op *op);
 void				add_op_new(t_all *x, char *op);
 void				optimize_op(t_op *op);
 int					get_last_num(t_stack *st);
+void				sort_almost_reverse_stack(t_stack **a, t_stack *b, t_op **op);
 
+void				quicksort(t_stack **a, t_op **op, int length);
 int					get_median(t_stack *a, int len);
 void				sort_a(t_all *x, int len_a, int push);
 int     			divide_a(t_all *x, int len);
@@ -74,7 +76,6 @@ int     			divide_b(t_all *x, int len);
 void				sort_short_a(t_all *x, int len_a);
 void				sort_short_b(t_all *x, int len_b);
 void				sort_three_b(t_all *x, int len_b);
-
 
 void				swap(t_stack **s);
 void				sa(t_stack **a);

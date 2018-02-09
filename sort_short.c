@@ -21,7 +21,7 @@
 
 void	sort_three_b(t_all *x, int len_b)
 {
-	int 	j;
+	int		j;
 
 	j = len_b;
 	while (len_b > 1)
@@ -43,7 +43,7 @@ void	sort_three_b(t_all *x, int len_b)
 		add_op_new(x, "pa");
 }
 
-int 	sort_short_b_2(t_all *x, int len_b)
+int		sort_short_b_2(t_all *x, int len_b)
 {
 	add_op_new(x, "rb");
 	add_op_new(x, "sb");
@@ -85,7 +85,7 @@ void	sort_short_a(t_all *x, int len_a)
 	if (CURRNUM > NEXTNUM && THIRDNUM > CURRNUM)
 	{
 		add_op_new(x, "sa");
-		return;
+		return ;
 	}
 	if (CURRNUM > NEXTNUM)
 		add_op_new(x, "sa");

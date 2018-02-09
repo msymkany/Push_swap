@@ -14,8 +14,8 @@
 
 int		partition(int *arr, int left, int right)
 {
-	int 	j;
-	int 	i;
+	int		j;
+	int		i;
 	int		num;
 	int		swap;
 
@@ -41,7 +41,7 @@ int		partition(int *arr, int left, int right)
 
 int		quickmedian(int *arr, int left, int right, int med)
 {
-	int 	part;
+	int		part;
 
 	part = partition(arr, left, right);
 	if (part == med)
@@ -52,11 +52,11 @@ int		quickmedian(int *arr, int left, int right, int med)
 		return (quickmedian(arr, left, part - 1, med));
 }
 
-int 	get_median(t_stack *a, int len)
+int		get_median(t_stack *a, int len)
 {
-	int 	arr[len];
+	int		arr[len];
 	int		i;
-	int 	med;
+	int		med;
 
 	i = 0;
 	while (i < len)

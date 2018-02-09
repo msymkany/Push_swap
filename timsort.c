@@ -11,37 +11,41 @@
 /* ************************************************************************** */
 
 #include "push.h"
+#define CURRNUM (*a)->num
+#define NEXTNUM (*a)->next->num
+#define THIRDNUM (*a)->next->next->num
+#define THIRD (*a)->next->next
 
-int		get_last_num(t_stack *st)
-{
-	while (st->next)
-		st = st->next;
-	return (st->num);
-}
+//int		get_last_num(t_stack *st)
+//{
+//	while (st->next)
+//		st = st->next;
+//	return (st->num);
+//}
 
-int		count_misplaced(t_stack *a)
-{
-	int		wrong;
-
-	wrong = 0;
-	while (a->next)
-	{
-		if (a->num > a->next->num)
-			wrong++;
-		a = a->next;
-	}
-	return (wrong);
-}
-
-void	divide(t_stack **a, t_stack **b, int wrong, t_op **op)
-{
-	while (wrong)
-	{
-		if ((*a)->num > (*a)->next->num)
-			wrong--;
-		add_op(op, "pb", a, b);
-	}
-}
+//int		count_misplaced(t_stack *a)
+//{
+//	int		wrong;
+//
+//	wrong = 0;
+//	while (a->next)
+//	{
+//		if (a->num > a->next->num)
+//			wrong++;
+//		a = a->next;
+//	}
+//	return (wrong);
+//}
+//
+//void	divide(t_stack **a, t_stack **b, int wrong, t_op **op)
+//{
+//	while (wrong)
+//	{
+//		if ((*a)->num > (*a)->next->num)
+//			wrong--;
+//		add_op(op, "pb", a, b);
+//	}
+//}
 
 void	merge_stacks(t_stack **a, t_stack **b, t_op **op)
 {
@@ -58,24 +62,48 @@ void	merge_stacks(t_stack **a, t_stack **b, t_op **op)
 	else
 		add_op(op, "rra", a, NULL);
 }
+//
+//void	timsort(t_stack *a, int wrong, t_op **op)
+//{
+//	t_stack		*b;
+//
+//	b = NULL;
+//	while (wrong)
+//	{
+//		wrong = (wrong % 2) ? wrong / 2 + 1 : wrong / 2;
+//		divide(&a, &b, wrong, op);
+//		while (b)
+//		{
+//			merge_stacks(&a, &b, op);
+//		}
+//		while (get_last_num(a) < a->num)
+//		{
+//			add_op(op, "rra", &a, NULL);
+//		}
+//		wrong = count_misplaced(a);
+//	}
+//}
 
-void	timsort(t_stack *a, int wrong, t_op **op)
+void	sort_almost_reverse_stack(t_stack **a, t_stack *b, t_op **op)
 {
-	t_stack		*b;
-
-	b = NULL;
-	while (wrong)
+	while (THIRD)
 	{
-		wrong = (wrong % 2) ? wrong / 2 + 1 : wrong / 2;
-		divide(&a, &b, wrong, op);
-		while (b)
+		if (CURRNUM < NEXTNUM || !b)
+			add_op(op, "pb", a, &b);
+		else
 		{
-			merge_stacks(&a, &b, op);
+			add_op(op, "pb", a, &b);
+			add_op(op, "rb", a, &b);
 		}
-		while (get_last_num(a) < a->num)
-		{
-			add_op(op, "rra", &a, NULL);
-		}
-		wrong = count_misplaced(a);
+	}
+	if (CURRNUM > NEXTNUM)
+		add_op(op, "sa", a, NULL);
+	while (b->next && b->num > b->next->num)
+		add_op(op, "pa", a, &b);
+	while (b)
+		merge_stacks(a, &b, op);
+	while (get_last_num(*a) < CURRNUM)
+	{
+		add_op(op, "rra", a, NULL);
 	}
 }
