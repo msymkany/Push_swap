@@ -51,7 +51,7 @@ int		main(int ar, char **av)
 	wrong = 0;
 	flag = 0;
 	if (ar == 1)
-		ft_usage(av[0]);
+		return (0);
 	else
 	{
 		count_flag = get_flags(ar, av, &flag);
