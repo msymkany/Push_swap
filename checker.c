@@ -38,6 +38,9 @@ void	checker(t_stack *a, int wrong)
 	}
 	else
 		write(1, "OK\n", 3);
+	del_stack(a);
+	if (b)
+		del_stack(b);
 }
 
 int		main(int ar, char **av)
